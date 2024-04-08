@@ -64,6 +64,7 @@ customElements.define('movement-minder-timer',
 
       // Add event listeners.
       this.#startPauseButton.addEventListener('click', () => this.#toggleTimer());
+      this.#resetButton.addEventListener('click', () => this.#resetTimer());
     }
 
     /**
@@ -178,6 +179,12 @@ customElements.define('movement-minder-timer',
      * Resets the timer.
      */
     #resetTimer() {
+
+      // Remove start attribute and reset text content.
+      if (this.hasAttribute('start')) {
+        this.removeAttribute('start');
+        this.#startPauseButton.textContent = 'Start';
+      }
 
       // Reset the current time in seconds.
       this.#setCurrentTimeInSeconds(30 * 60)
