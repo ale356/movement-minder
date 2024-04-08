@@ -1,0 +1,25 @@
+{
+  "name": "movement-minder",
+  "version": "1.0",
+  "description": "MovementMinder - Sit less and move more.",
+  "type": "module",
+  "browser": "src/js/index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "npx eslint ./src || exit 0",
+    "lint:fix": "npx eslint ./src --fix || exit 0"
+  },
+  "contributors": [
+    "Alejandro Lindström Mamani <al225vh@student.lnu.se>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@lnu/eslint-config": "^1.1.10",
+    "vite": "^5.2.8"
+  },
+  "dependencies": {
+  }
+}
