@@ -4,7 +4,7 @@ template.innerHTML = `
 <style>
 </style>
 <div id="timerContainer">
-    <div id="display">20:00</div>
+    <div id="display">30:00</div>
     <button id="startPauseButton">Start</button>
     <button id="resetButton">Reset</button>
 </div>
@@ -54,8 +54,8 @@ customElements.define('movement-minder-timer',
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true));
 
-      // Set the current time in seconds to 20 minutes.
-      this.#currentTimeInSeconds = 20 * 60;
+      // Set the current time in seconds to 30 minutes.
+      this.#currentTimeInSeconds = 30 * 60;
 
       // Get references to elements to change.
       this.#display = this.shadowRoot.querySelector('#display');
@@ -170,6 +170,21 @@ customElements.define('movement-minder-timer',
      * Pauses the timer.
      */
     #pauseTimer() {
+      // Clear the interval to pause the timer.
+      clearInterval(this.timerInterval);
+    }
+
+    /**
+     * Resets the timer.
+     */
+    #resetTimer() {
+
+      // Reset the current time in seconds.
+      this.#setCurrentTimeInSeconds(30 * 60)
+
+      // Update the display with the reset time.
+      this.#updateDisplay(this.#getCurrentTimeInSeconds());
+
       // Clear the interval to pause the timer.
       clearInterval(this.timerInterval);
     }
