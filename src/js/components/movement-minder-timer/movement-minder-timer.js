@@ -103,7 +103,44 @@ customElements.define('movement-minder-timer',
      * Starts the timer.
      */
     #startTimer() {
-      // Logic to start the timer...
+      // Set the initial time to 20 minutes.
+      let timeInSeconds = 20 * 60;
+
+      // Update the display initially.
+      this.#updateDisplay(timeInSeconds);
+
+      // Update the display every second.
+      this.timerInterval = setInterval(() => {
+        // Decrement the time by one second.
+        timeInSeconds--;
+
+        // Update the display
+        this.#updateDisplay(timeInSeconds);
+
+        // Check if the timer has reached 0.
+        if (timeInSeconds <= 0) {
+          // Clear the interval.
+          clearInterval(this.timerInterval);
+          // Additional logic when the timer reaches 0 (e.g., alert the user).
+        }
+      }, 1000); // Update every second (1000 milliseconds).
+    }
+
+    /**
+     * Updates the display with the current time.
+     * 
+     * @param {number} timeInSeconds The time in seconds.
+     */
+    #updateDisplay(timeInSeconds) {
+      // Calculate minutes and seconds
+      const minutes = Math.floor(timeInSeconds / 60);
+      const seconds = timeInSeconds % 60;
+
+      // Format minutes and seconds with leading zeros
+      const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      // Update the display
+      this.#display.textContent = formattedTime;
     }
 
     /**
