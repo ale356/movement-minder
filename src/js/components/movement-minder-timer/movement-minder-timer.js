@@ -37,6 +37,13 @@ customElements.define('movement-minder-timer',
     #resetButton;
 
     /**
+     * Reference to the current time in seconds.
+     *
+     * @type {Number}
+     */
+     #currentTimeInSeconds;
+
+    /**
      * Creates an instance of the current type.
      */
     constructor() {
@@ -46,6 +53,9 @@ customElements.define('movement-minder-timer',
       // append the template to the shadow root.
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true));
+
+      // Set the current time in seconds to 20 minutes.
+      this.#currentTimeInSeconds = 20 * 60;
 
       // Get references to elements to change.
       this.#display = this.shadowRoot.querySelector('#display');
@@ -99,32 +109,45 @@ customElements.define('movement-minder-timer',
       }
     }
 
-    /**
-     * Starts the timer.
-     */
-    #startTimer() {
-      // Set the initial time to 20 minutes.
-      let timeInSeconds = 20 * 60;
+/**
+ * Starts the timer.
+ */
+#startTimer() {
+  // Update the display initially.
+  this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
-      // Update the display initially.
-      this.#updateDisplay(timeInSeconds);
+  // Update the display every second.
+  this.timerInterval = setInterval(() => {
+    // Decrement the time by one second.
+    this.#setCurrentTimeInSeconds(this.#getCurrentTimeInSeconds() - 1);
 
-      // Update the display every second.
-      this.timerInterval = setInterval(() => {
-        // Decrement the time by one second.
-        timeInSeconds--;
+    // Update the display
+    this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
-        // Update the display
-        this.#updateDisplay(timeInSeconds);
-
-        // Check if the timer has reached 0.
-        if (timeInSeconds <= 0) {
-          // Clear the interval.
-          clearInterval(this.timerInterval);
-          // Additional logic when the timer reaches 0 (e.g., alert the user).
-        }
-      }, 1000); // Update every second (1000 milliseconds).
+    // Check if the timer has reached 0.
+    if (this.#getCurrentTimeInSeconds() <= 0) {
+      // Clear the interval.
+      clearInterval(this.timerInterval);
+      // Additional logic when the timer reaches 0 (e.g., alert the user).
     }
+  }, 1000); // Update every second (1000 milliseconds).
+}
+
+/**
+ * Getter for currentTimeInSeconds.
+ * @returns {number} The current time in seconds.
+ */
+#getCurrentTimeInSeconds() {
+  return this.#currentTimeInSeconds;
+}
+
+/**
+ * Setter for currentTimeInSeconds.
+ * @param {number} newValue The new value for current time in seconds.
+ */
+#setCurrentTimeInSeconds(newValue) {
+  this.#currentTimeInSeconds = newValue;
+}
 
     /**
      * Updates the display with the current time.
