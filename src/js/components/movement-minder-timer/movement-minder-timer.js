@@ -10,7 +10,11 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
 </style>
-<h1>MovementMinder Timer</h1>
+<div id="timerContainer">
+    <div id="display">20:00</div>
+    <button id="startPauseButton">Start</button>
+    <button id="resetButton">Reset</button>
+  </div>
  `
 
 customElements.define('movement-minder-timer',
@@ -19,11 +23,25 @@ customElements.define('movement-minder-timer',
    */
   class extends HTMLElement {
     /**
-     * Reference to the start button.
+     * Reference to the display.
+     *
+     * @type {HTMLDivElement}
+     */
+    #display
+
+    /**
+     * Reference to the start/pausue button.
      *
      * @type {HTMLButtonElement}
      */
-    #startButton
+    #startPauseButton
+
+    /**
+     * Reference to the reset button.
+     *
+     * @type {HTMLButtonElement}
+     */
+    #resetButton
 
     /**
      * Creates an instance of the current type.
