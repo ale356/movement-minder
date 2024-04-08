@@ -41,7 +41,7 @@ customElements.define('movement-minder-timer',
      *
      * @type {Number}
      */
-     #currentTimeInSeconds;
+    #currentTimeInSeconds;
 
     /**
      * Creates an instance of the current type.
@@ -109,45 +109,45 @@ customElements.define('movement-minder-timer',
       }
     }
 
-/**
- * Starts the timer.
- */
-#startTimer() {
-  // Update the display initially.
-  this.#updateDisplay(this.#getCurrentTimeInSeconds());
+    /**
+     * Starts the timer.
+     */
+    #startTimer() {
+      // Update the display initially.
+      this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
-  // Update the display every second.
-  this.timerInterval = setInterval(() => {
-    // Decrement the time by one second.
-    this.#setCurrentTimeInSeconds(this.#getCurrentTimeInSeconds() - 1);
+      // Update the display every second.
+      this.timerInterval = setInterval(() => {
+        // Decrement the time by one second.
+        this.#setCurrentTimeInSeconds(this.#getCurrentTimeInSeconds() - 1);
 
-    // Update the display
-    this.#updateDisplay(this.#getCurrentTimeInSeconds());
+        // Update the display
+        this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
-    // Check if the timer has reached 0.
-    if (this.#getCurrentTimeInSeconds() <= 0) {
-      // Clear the interval.
-      clearInterval(this.timerInterval);
-      // Additional logic when the timer reaches 0 (e.g., alert the user).
+        // Check if the timer has reached 0.
+        if (this.#getCurrentTimeInSeconds() <= 0) {
+          // Clear the interval.
+          clearInterval(this.timerInterval);
+          // Additional logic when the timer reaches 0 (e.g., alert the user).
+        }
+      }, 1000); // Update every second (1000 milliseconds).
     }
-  }, 1000); // Update every second (1000 milliseconds).
-}
 
-/**
- * Getter for currentTimeInSeconds.
- * @returns {number} The current time in seconds.
- */
-#getCurrentTimeInSeconds() {
-  return this.#currentTimeInSeconds;
-}
+    /**
+     * Getter for currentTimeInSeconds.
+     * @returns {number} The current time in seconds.
+     */
+    #getCurrentTimeInSeconds() {
+      return this.#currentTimeInSeconds;
+    }
 
-/**
- * Setter for currentTimeInSeconds.
- * @param {number} newValue The new value for current time in seconds.
- */
-#setCurrentTimeInSeconds(newValue) {
-  this.#currentTimeInSeconds = newValue;
-}
+    /**
+     * Setter for currentTimeInSeconds.
+     * @param {number} newValue The new value for current time in seconds.
+     */
+    #setCurrentTimeInSeconds(newValue) {
+      this.#currentTimeInSeconds = newValue;
+    }
 
     /**
      * Updates the display with the current time.
@@ -170,7 +170,8 @@ customElements.define('movement-minder-timer',
      * Pauses the timer.
      */
     #pauseTimer() {
-      // Logic to pause the timer...
+      // Clear the interval to pause the timer.
+      clearInterval(this.timerInterval);
     }
 
     /**
