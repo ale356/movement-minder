@@ -122,6 +122,9 @@ customElements.define('movement-minder-break-timer',
         // Decrement the time by one second.
         this.#setCurrentTimeInSeconds(this.#getCurrentTimeInSeconds() - 1);
 
+        // Test the timer when it reaches zero.
+         this.#setCurrentTimeInSeconds(0)
+
         // Update the display
         this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
@@ -131,8 +134,9 @@ customElements.define('movement-minder-break-timer',
           clearInterval(this.timerInterval);
           // Additional logic when the timer reaches 0 (e.g., alert the user).
 
-          // Emit the "breakOver" event.
-          this.dispatchEvent(new Event('breakOver'));
+          // Reset the timer and hide it from the user.
+          this.setAttribute('hidden', '');
+          this.#resetTimer()
         }
       }, 1000); // Update every second (1000 milliseconds).
     }
@@ -159,14 +163,14 @@ customElements.define('movement-minder-break-timer',
      * @param {number} timeInSeconds The time in seconds.
      */
     #updateDisplay(timeInSeconds) {
-      // Calculate minutes and seconds
+      // Calculate minutes and seconds.
       const minutes = Math.floor(timeInSeconds / 60);
       const seconds = timeInSeconds % 60;
 
-      // Format minutes and seconds with leading zeros
+      // Format minutes and seconds with leading zeros.
       const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      // Update the display
+      // Update the display.
       this.#display.textContent = formattedTime;
     }
 
@@ -203,16 +207,21 @@ customElements.define('movement-minder-break-timer',
      * Called after the element is inserted into the DOM.
      */
     async connectedCallback() {
+
+      // Hide the element from the user.
+      this.setAttribute('hidden', '')
+
       // Listen for the custom event at the body level.
-      document.body.addEventListener('walkBreak', () => this.#handleWalkBreakEvent());
+      document.body.addEventListener('startBreak', () => this.#handleStartBreakEvent());
     }
 
     /**
-     * Handle the "walkBreak" event.
+     * Handle the "startBreak" event.
      */
-    #handleWalkBreakEvent() {
+    #handleStartBreakEvent() {
       // Start the break timer.
-      console.log('Received walkBreak event');
+      console.log('Received startBreak event');
+      this.removeAttribute('hidden', '')
       this.#startTimer();
 
     }

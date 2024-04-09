@@ -134,8 +134,8 @@ customElements.define('movement-minder-timer',
           clearInterval(this.timerInterval);
           // Additional logic when the timer reaches 0 (e.g., alert the user).
           console.log('timer hit zero')
-          // Emit the "walkBreak" event.
-          this.dispatchEvent(new window.CustomEvent('walkBreak', {
+          // Emit the "startBreak" event.
+          this.dispatchEvent(new window.CustomEvent('startBreak', {
             composed: false,      // Defaults to false but added for clearity.
             bubbles: true         // Needed. We want to bubble the event to todo-list and further.
           }))        }
