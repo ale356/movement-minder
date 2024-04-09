@@ -130,6 +130,9 @@ customElements.define('movement-minder-timer',
           // Clear the interval.
           clearInterval(this.timerInterval);
           // Additional logic when the timer reaches 0 (e.g., alert the user).
+          
+          // Emit the "walkBreak" event.
+          this.dispatchEvent(new Event('walkBreak'));
         }
       }, 1000); // Update every second (1000 milliseconds).
     }
