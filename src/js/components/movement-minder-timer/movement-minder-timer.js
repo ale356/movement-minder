@@ -130,9 +130,7 @@ customElements.define('movement-minder-timer',
 
         // Check if the timer has reached 0.
         if (this.#getCurrentTimeInSeconds() <= 0) {
-          // Clear the interval.
-          clearInterval(this.timerInterval);
-          // Additional logic when the timer reaches 0 (e.g., alert the user).
+          this.#resetTimer()
           console.log('timer hit zero')
           // Emit the "startBreak" event.
           this.dispatchEvent(new window.CustomEvent('startBreak', {
