@@ -6,7 +6,10 @@
  */
 
 import './components/movement-minder-timer/movement-minder-timer'
+import './components/movement-minder-break-timer/movement-minder-break-timer'
 
-const timerElement = document.createElement('movement-minder-timer')
+const mainTimerElement = document.createElement('movement-minder-timer')
+const breakTimerElement = document.createElement('movement-minder-break-timer')
 
-document.body.appendChild(timerElement)
+document.body.appendChild(mainTimerElement)
+document.body.appendChild(breakTimerElement)

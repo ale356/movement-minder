@@ -4,15 +4,15 @@ template.innerHTML = `
 <style>
 </style>
 <div id="timerContainer">
-    <div id="display">30:00</div>
+    <div id="display">05:00</div>
     <button id="startPauseButton">Start</button>
     <button id="resetButton">Reset</button>
 </div>
 `;
 
-customElements.define('movement-minder-timer',
+customElements.define('movement-minder-break-timer',
   /**
-   * Represents a MovementMinder timer element.
+   * Represents a MovementMinder break timer element.
    */
   class extends HTMLElement {
     /**
@@ -54,8 +54,8 @@ customElements.define('movement-minder-timer',
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true));
 
-      // Set the current time in seconds to 30 minutes.
-      this.#currentTimeInSeconds = 30 * 60;
+      // Set the current time in seconds to 5 minutes.
+      this.#currentTimeInSeconds = 5 * 60;
 
       // Get references to elements to change.
       this.#display = this.shadowRoot.querySelector('#display');
@@ -125,20 +125,15 @@ customElements.define('movement-minder-timer',
         // Update the display
         this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
-        // Test the timer when it reaches zero.
-        this.#setCurrentTimeInSeconds(0)
-
         // Check if the timer has reached 0.
         if (this.#getCurrentTimeInSeconds() <= 0) {
           // Clear the interval.
           clearInterval(this.timerInterval);
           // Additional logic when the timer reaches 0 (e.g., alert the user).
-          console.log('timer hit zero')
-          // Emit the "walkBreak" event.
-          this.dispatchEvent(new window.CustomEvent('walkBreak', {
-            composed: false,      // Defaults to false but added for clearity.
-            bubbles: true         // Needed. We want to bubble the event to todo-list and further.
-          }))        }
+
+          // Emit the "breakOver" event.
+          this.dispatchEvent(new Event('breakOver'));
+        }
       }, 1000); // Update every second (1000 milliseconds).
     }
 
@@ -195,7 +190,7 @@ customElements.define('movement-minder-timer',
       }
 
       // Reset the current time in seconds.
-      this.#setCurrentTimeInSeconds(30 * 60)
+      this.#setCurrentTimeInSeconds(5 * 60)
 
       // Update the display with the reset time.
       this.#updateDisplay(this.#getCurrentTimeInSeconds());
@@ -208,6 +203,17 @@ customElements.define('movement-minder-timer',
      * Called after the element is inserted into the DOM.
      */
     async connectedCallback() {
+      // Listen for the custom event at the body level.
+      document.body.addEventListener('walkBreak', () => this.#handleWalkBreakEvent());
+    }
+
+    /**
+     * Handle the "walkBreak" event.
+     */
+    #handleWalkBreakEvent() {
+      // Start the break timer.
+      console.log('Received walkBreak event');
+      this.#startTimer();
 
     }
 
