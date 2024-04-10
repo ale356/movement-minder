@@ -126,7 +126,7 @@ customElements.define('movement-minder-break-timer',
         this.#setCurrentTimeInSeconds(this.#getCurrentTimeInSeconds() - 1);
 
         // Test the timer when it reaches zero.
-        // this.#setCurrentTimeInSeconds(0)
+         this.#setCurrentTimeInSeconds(0)
 
         // Update the display
         this.#updateDisplay(this.#getCurrentTimeInSeconds());

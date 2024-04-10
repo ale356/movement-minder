@@ -126,7 +126,7 @@ customElements.define('movement-minder-timer',
         this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
         // Test the timer when it reaches zero.
-         this.#setCurrentTimeInSeconds(0)
+        this.#setCurrentTimeInSeconds(0)
 
         // Check if the timer has reached 0.
         if (this.#getCurrentTimeInSeconds() <= 0) {
@@ -136,7 +136,8 @@ customElements.define('movement-minder-timer',
           this.dispatchEvent(new window.CustomEvent('startBreak', {
             composed: false,      // Defaults to false but added for clearity.
             bubbles: true         // Needed. We want to bubble the event to todo-list and further.
-          }))        }
+          }))
+        }
       }, 1000); // Update every second (1000 milliseconds).
     }
 
@@ -171,6 +172,9 @@ customElements.define('movement-minder-timer',
 
       // Update the display
       this.#display.textContent = formattedTime;
+
+      // Update the browser tab text.
+      document.title = `${formattedTime}`
     }
 
     /**
