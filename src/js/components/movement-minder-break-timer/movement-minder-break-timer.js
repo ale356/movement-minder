@@ -4,6 +4,9 @@ template.innerHTML = `
 <style>
 </style>
 <div id="timerContainer">
+<div id="notificationContainer">
+    <p id="notificationMessage">Time to take a walking break.</p>
+  </div>
     <div id="display">05:00</div>
     <button id="startPauseButton">Start</button>
     <button id="resetButton">Reset</button>
@@ -123,7 +126,7 @@ customElements.define('movement-minder-break-timer',
         this.#setCurrentTimeInSeconds(this.#getCurrentTimeInSeconds() - 1);
 
         // Test the timer when it reaches zero.
-         this.#setCurrentTimeInSeconds(0)
+        // this.#setCurrentTimeInSeconds(0)
 
         // Update the display
         this.#updateDisplay(this.#getCurrentTimeInSeconds());
@@ -222,7 +225,7 @@ customElements.define('movement-minder-break-timer',
       // Start the break timer.
       console.log('Received startBreak event');
       this.removeAttribute('hidden', '')
-      this.#startTimer();
+     // this.#startTimer();
 
     }
 
