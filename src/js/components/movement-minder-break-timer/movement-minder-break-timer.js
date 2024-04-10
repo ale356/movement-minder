@@ -126,7 +126,7 @@ customElements.define('movement-minder-break-timer',
         this.#setCurrentTimeInSeconds(this.#getCurrentTimeInSeconds() - 1);
 
         // Test the timer when it reaches zero.
-         this.#setCurrentTimeInSeconds(0)
+        // this.#setCurrentTimeInSeconds(0)
 
         // Update the display
         this.#updateDisplay(this.#getCurrentTimeInSeconds());
@@ -175,6 +175,9 @@ customElements.define('movement-minder-break-timer',
 
       // Update the display.
       this.#display.textContent = formattedTime;
+
+      // Update the browser tab text.
+      document.title = `${formattedTime}`
     }
 
     /**
@@ -225,7 +228,7 @@ customElements.define('movement-minder-break-timer',
       // Start the break timer.
       console.log('Received startBreak event');
       this.removeAttribute('hidden', '')
-     // this.#startTimer();
+      // this.#startTimer();
 
     }
 
