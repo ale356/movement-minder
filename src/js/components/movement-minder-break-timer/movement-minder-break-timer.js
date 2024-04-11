@@ -47,6 +47,20 @@ customElements.define('movement-minder-break-timer',
     #currentTimeInSeconds;
 
     /**
+     * Reference to the AudioContext instance.
+     *
+     * @type {AudioContext}
+     */
+    #audioContext;
+
+    /**
+     * Reference to the Oscillator instance.
+     *
+     * @type {OscillatorNode}
+     */
+    #oscillator;
+
+    /**
      * Creates an instance of the current type.
      */
     constructor() {
@@ -230,6 +244,39 @@ customElements.define('movement-minder-break-timer',
       this.removeAttribute('hidden', '')
       // this.#startTimer();
 
+    }
+
+    /**
+ * Runs the oscillator, plays a sound.
+ */
+    #playSound() {
+      if (this.#audioContext && this.#oscillator) {
+        this.#oscillator.start();
+        setTimeout(() => {
+          this.#oscillator.stop();
+        }, 1000); // 1000 milliseconds = 1 second.
+      }
+    }
+
+    /**
+     * Create AudioContext and OscillatorNode.
+     */
+    #createAudioContextAndOscillator() {
+      // Setup the audio.
+      // Create an AudioContext instance.
+      this.#audioContext = new AudioContext()
+
+      // Create an OscillatorNode.
+      this.#oscillator = this.#audioContext.createOscillator()
+
+      // Set oscillator type to sine wave.
+      this.#oscillator.type = 'sine'
+
+      // Set the frequency of the sine wave (e.g., 440 Hz for A4).
+      this.#oscillator.frequency.setValueAtTime(440, this.#audioContext.currentTime);
+
+      // Connect the oscillator to the destination (output).
+      this.#oscillator.connect(this.#audioContext.destination);
     }
 
     /**

@@ -235,10 +235,10 @@ customElements.define('movement-minder-timer',
       this.#audioContext = new AudioContext()
 
       // Create an OscillatorNode.
-      this.#oscillator = this.audioContext.createOscillator()
+      this.#oscillator = this.#audioContext.createOscillator()
 
       // Set oscillator type to sine wave.
-      this.oscillator.type = 'sine'
+      this.#oscillator.type = 'sine'
 
       // Set the frequency of the sine wave (e.g., 440 Hz for A4).
       this.#oscillator.frequency.setValueAtTime(440, this.#audioContext.currentTime);
@@ -252,10 +252,10 @@ customElements.define('movement-minder-timer',
      */
     #handleTimerEnd() {
       // Create the audio context and oscillator.
-      this.createAudioContext();
+      this.#createAudioContextAndOscillator();
 
       // Play the sound.
-      this.playSound();
+      this.#playSound();
 
       // Reset the timer.
       this.#resetTimer()
