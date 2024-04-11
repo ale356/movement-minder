@@ -15,3 +15,4 @@ const breakNotificationElement = document.createElement('movement-minder-break-n
 
 document.body.appendChild(mainTimerElement)
 document.body.appendChild(breakTimerElement)
+
