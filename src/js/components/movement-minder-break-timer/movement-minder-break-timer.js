@@ -140,20 +140,14 @@ customElements.define('movement-minder-break-timer',
         this.#setCurrentTimeInSeconds(this.#getCurrentTimeInSeconds() - 1);
 
         // Test the timer when it reaches zero.
-        // this.#setCurrentTimeInSeconds(0)
+        this.#setCurrentTimeInSeconds(0)
 
         // Update the display
         this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
         // Check if the timer has reached 0.
         if (this.#getCurrentTimeInSeconds() <= 0) {
-          // Clear the interval.
-          clearInterval(this.timerInterval);
-          // Additional logic when the timer reaches 0 (e.g., alert the user).
-
-          // Reset the timer and hide it from the user.
-          this.setAttribute('hidden', '');
-          this.#resetTimer()
+          this.#handleTimerEnd()
         }
       }, 1000); // Update every second (1000 milliseconds).
     }
@@ -277,6 +271,25 @@ customElements.define('movement-minder-break-timer',
 
       // Connect the oscillator to the destination (output).
       this.#oscillator.connect(this.#audioContext.destination);
+    }
+
+    /**
+     * Handles the logic when the timer ends.
+     */
+    #handleTimerEnd() {
+      // Create the audio context and oscillator.
+      this.#createAudioContextAndOscillator();
+
+      // Play the sound.
+      this.#playSound();
+
+      // Clear the interval.
+      clearInterval(this.timerInterval);
+      // Additional logic when the timer reaches 0 (e.g., alert the user).
+
+      // Reset the timer and hide it from the user.
+      this.setAttribute('hidden', '');
+      this.#resetTimer()
     }
 
     /**
