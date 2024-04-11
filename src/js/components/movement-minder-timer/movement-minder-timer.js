@@ -144,13 +144,7 @@ customElements.define('movement-minder-timer',
 
         // Check if the timer has reached 0.
         if (this.#getCurrentTimeInSeconds() <= 0) {
-          this.#resetTimer()
-          console.log('timer hit zero')
-          // Emit the "startBreak" event.
-          this.dispatchEvent(new window.CustomEvent('startBreak', {
-            composed: false,      // Defaults to false but added for clearity.
-            bubbles: true         // Needed. We want to bubble the event to todo-list and further.
-          }))
+          this.#handleTimerEnd()
         }
       }, 1000); // Update every second (1000 milliseconds).
     }
@@ -223,13 +217,13 @@ customElements.define('movement-minder-timer',
     /**
      * Runs the oscillator, plays a sound.
      */
-    #playSound() { 
+    #playSound() {
       if (this.#audioContext && this.#oscillator) {
-      this.#oscillator.start();
-      setTimeout(() => {
-        this.#oscillator.stop();
-      }, 1000); // 1000 milliseconds = 1 second.
-    }
+        this.#oscillator.start();
+        setTimeout(() => {
+          this.#oscillator.stop();
+        }, 1000); // 1000 milliseconds = 1 second.
+      }
     }
 
     /**
@@ -251,6 +245,29 @@ customElements.define('movement-minder-timer',
 
       // Connect the oscillator to the destination (output).
       this.#oscillator.connect(this.#audioContext.destination);
+    }
+
+    /**
+     * Handles the logic when the timer ends.
+     */
+    #handleTimerEnd() {
+      // Create the audio context and oscillator.
+      this.createAudioContext();
+
+      // Play the sound.
+      this.playSound();
+
+      // Reset the timer.
+      this.#resetTimer()
+      
+      // Emit the "startBreak" event.
+      this.dispatchEvent(new window.CustomEvent('startBreak', {
+        composed: false,      // Defaults to false but added for clearity.
+        bubbles: true         // Needed. We want to bubble the event to todo-list and further.
+      }))
+
+      console.log('Timer hit zero!')
+
     }
 
     /**
