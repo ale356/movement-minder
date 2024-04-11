@@ -259,7 +259,10 @@ customElements.define('movement-minder-timer',
 
       // Reset the timer.
       this.#resetTimer()
-      
+
+      // Update the browser tab text.
+      document.title = 'The time is up! - 00:00'
+
       // Emit the "startBreak" event.
       this.dispatchEvent(new window.CustomEvent('startBreak', {
         composed: false,      // Defaults to false but added for clearity.

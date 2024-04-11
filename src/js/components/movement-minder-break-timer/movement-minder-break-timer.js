@@ -285,7 +285,9 @@ customElements.define('movement-minder-break-timer',
 
       // Clear the interval.
       clearInterval(this.timerInterval);
-      // Additional logic when the timer reaches 0 (e.g., alert the user).
+
+      // Update the browser tab text.
+      document.title = 'The time is up! - 00:00'
 
       // Reset the timer and hide it from the user.
       this.setAttribute('hidden', '');
