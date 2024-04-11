@@ -185,7 +185,12 @@ customElements.define('movement-minder-break-timer',
       this.#display.textContent = formattedTime;
 
       // Update the browser tab text.
-      document.title = `${formattedTime}`
+      if(this.#getCurrentTimeInSeconds > 0){
+        document.title = `${formattedTime}`
+      } else {
+        document.title = 'Time is up! - 00:00'
+      }
+      
     }
 
     /**
@@ -285,9 +290,6 @@ customElements.define('movement-minder-break-timer',
 
       // Clear the interval.
       clearInterval(this.timerInterval);
-
-      // Update the browser tab text.
-      document.title = 'The time is up! - 00:00'
 
       // Reset the timer and hide it from the user.
       this.setAttribute('hidden', '');
