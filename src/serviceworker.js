@@ -16,14 +16,20 @@ self.addEventListener('fetch', event => {
 
   const cachedFetch = async request => {
     try {
-      // Try to fetch the asset from the server and if successfull, clone the result.
-      const response = await fetch(request)
+      // Check if the request is from your domain
+      if (request.url.startsWith(self.location.origin)) {
+        // Try to fetch the asset from the server and if successfull, clone the result.
+        const response = await fetch(request)
 
-      // Save the result in the cache.
-      const cache = await self.caches.open(version)
-      cache.put(request, response.clone)
+        // Save the result in the cache.
+        const cache = await self.caches.open(version)
+        cache.put(request, response.clone())
 
-      return response
+        return response
+      } else {
+        // If the request is not from your domain, don't cache it.
+        return fetch(request);
+      }
     } catch (error) {
       console.info('ServiceWorker: Serving cached result.')
       return caches.match(request)
