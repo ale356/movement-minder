@@ -9,7 +9,7 @@ import './components/movement-minder-timer/movement-minder-timer'
 import './components/movement-minder-break-timer/movement-minder-break-timer'
 import './components/movement-minder-break-notification/movement-minder-break-notification'
 
-// Check if the browser supports the Notification API
+// Check if the browser supports the Notification API.
 if ("Notification" in window) {
   // Request permission for notifications
   async function requestNotificationPermission() {
@@ -22,6 +22,21 @@ if ("Notification" in window) {
   }
 
   requestNotificationPermission();
+}
+
+// Register the service worker.
+if ('serviceworker' in navigator) {
+  window.addEventListener('load', async () => {
+    try {
+      const registration = await this.navigator.serviceWorker.register('./serviceworker.js')
+
+      console.log('ServiceWorker: Registration successful with scope: ', registration.scope)
+    } catch (error) {
+      console.log('ServiceWorker: Registration failed: ', error)
+    }
+  })
+} else {
+  console.log('Your browser does not support offline capabilities or notifications.')
 }
 
 // Create the web components needed.
