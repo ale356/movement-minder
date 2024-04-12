@@ -10,6 +10,29 @@ self.addEventListener('activate', event => {
   // TODO: Clean up older versions of the cache.
 })
 
+self.addEventListener('fetch', event => {
+  console.log('ServiceWorker: Fetching ', version)
+  // TODO: Cache new resources when online and serve cached content if offline.
+
+  const cachedFetch = async request => {
+    try {
+      // Try to fetch the asset from the server and if successfull, clone the result.
+      const response = await fetch(request)
+
+      // Save the result in the cache.
+      const cache = await self.caches.open(version)
+      cache.put(request, response.clone)
+
+      return response
+    } catch (error) {
+      console.info('ServiceWorker: Serving cached result.')
+      return caches.match(request)
+    }
+  }
+
+  event.respondWith(cachedFetch(event.request))
+})
+
 self.addEventListener('push', event => {
   console.log('ServiceWorker: Got a push message from the server ', version)
   // TODO: Show a notification to the user.
