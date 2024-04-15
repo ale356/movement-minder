@@ -43,3 +43,19 @@ self.addEventListener('push', event => {
   console.log('ServiceWorker: Got a push message from the server ', version)
   // TODO: Show a notification to the user.
 })
+
+// Listen for messages from the main JavaScript file.
+self.addEventListener('message', event => {
+  console.log('Message received in service worker:', event.data);
+  // Check if the message is about starting a break
+  if (event.data && event.data.type === 'startBreak') {
+    // Extract the message from the event data.
+    const { message } = event.data;
+
+    // Attempt to show a notification to the user.
+    self.registration.showNotification('MovementMinder', {
+      body: message,
+    })
+  }
+});
+

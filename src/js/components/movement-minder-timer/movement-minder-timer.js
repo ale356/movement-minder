@@ -264,9 +264,11 @@ customElements.define('movement-minder-timer',
       document.title = 'The time is up! - 00:00'
 
       // Emit the "startBreak" event.
+      const customMessage = 'Time to take a break!'
       this.dispatchEvent(new window.CustomEvent('startBreak', {
         composed: false,      // Defaults to false but added for clearity.
-        bubbles: true         // Needed. We want to bubble the event to todo-list and further.
+        bubbles: true,         // Needed. We want to bubble the event to todo-list and further.
+        detail: customMessage
       }))
 
       console.log('Timer hit zero!')

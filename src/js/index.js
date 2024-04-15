@@ -39,6 +39,16 @@ if ('serviceWorker' in navigator) {
   console.log('Your browser does not support offline capabilities or notifications.')
 }
 
+// Listen for the custom event emitted by the web component.
+document.addEventListener('startBreak', event => {
+  // Forward the message to the service worker.
+  navigator.serviceWorker.controller.postMessage({
+    type: 'startBreak',
+    message: event.detail
+  });
+});
+
+
 // Create the web components needed.
 const mainTimerElement = document.createElement('movement-minder-timer')
 const breakTimerElement = document.createElement('movement-minder-break-timer')
