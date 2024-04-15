@@ -185,12 +185,12 @@ customElements.define('movement-minder-break-timer',
       this.#display.textContent = formattedTime;
 
       // Update the browser tab text.
-      if(this.#getCurrentTimeInSeconds > 0){
+      if (this.#getCurrentTimeInSeconds > 0) {
         document.title = `${formattedTime}`
       } else {
         document.title = 'Time is up! - 00:00'
       }
-      
+
     }
 
     /**
@@ -294,6 +294,14 @@ customElements.define('movement-minder-break-timer',
       // Reset the timer and hide it from the user.
       this.setAttribute('hidden', '');
       this.#resetTimer()
+
+      // Emit the "startBreak" event.
+      const customMessage = 'Break is finished!'
+      this.dispatchEvent(new window.CustomEvent('startBreak', {
+        composed: false,      // Defaults to false but added for clearity.
+        bubbles: true,         // Needed. We want to bubble the event to todo-list and further.
+        detail: customMessage
+      }))
     }
 
     /**
