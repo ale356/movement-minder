@@ -5,8 +5,8 @@ template.innerHTML = `
 </style>
 <div id="timerContainer">
     <div id="display">30:00</div>
-    <div id="notificationContainer">
-    <p id="notificationMessage">Time to take a walking break.</p>
+    <div id="messageContainer">
+    <p id="breakMessage">Time to take a walking break.</p>
   </div>
     <button id="startPauseButton">Start</button>
     <button id="resetButton">Reset</button>
@@ -127,12 +127,12 @@ customElements.define('movement-minder-timer',
       this.#resetButton = this.shadowRoot.querySelector('#resetButton');
       this.#configureButton = this.shadowRoot.querySelector('#configureButton')
       this.#configurationContainer = this.shadowRoot.querySelector('#configurationContainer')
-      this.#messageContainer = this.shadowRoot.querySelector('#notificationContainer');
+      this.#messageContainer = this.shadowRoot.querySelector('#messageContainer');
 
       // Add event listeners.
       this.#startPauseButton.addEventListener('click', () => this.#toggleTimer());
       this.#resetButton.addEventListener('click', () => this.#resetTimer());
-      this.#configureButton.addEventListener('click', () => this.#showConfiguration());
+      this.#configureButton.addEventListener('click', () => this.#toggleConfiguration());
     }
 
     /**
@@ -194,7 +194,7 @@ customElements.define('movement-minder-timer',
         this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
         // Test the timer when it reaches zero.
-       // this.#setCurrentTimeInSeconds(0)
+        // this.#setCurrentTimeInSeconds(0)
 
         // Check if the timer has reached 0.
         if (this.#getCurrentTimeInSeconds() <= 0) {
@@ -395,8 +395,12 @@ customElements.define('movement-minder-timer',
     /**
      * Shows the configuration settings.
      */
-    #showConfiguration() {
-      this.#configurationContainer.removeAttribute('hidden', '')
+    #toggleConfiguration() {
+      if (this.#configurationContainer.hasAttribute('hidden')) {
+        this.#configurationContainer.removeAttribute('hidden');
+      } else {
+        this.#configurationContainer.setAttribute('hidden', '');
+      }
     }
   }
 );
