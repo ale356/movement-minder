@@ -18,8 +18,8 @@
   "private": true,
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.10",
+    "eslint": "^9.0.0",
+    "eslint-config-google": "^0.14.0",
     "vite": "^5.2.8"
-  },
-  "dependencies": {
   }
 }

@@ -3,6 +3,14 @@ const version = '1.0.0'
 self.addEventListener('install', event => {
   console.log('ServiceWorker: Installed version ', version)
   // TODO: Cache resources needed to start.
+  event.waitUntil(
+    caches.open(version)
+      .then(cache => {
+        return cache.addAll([
+          'src/notification/doorbell-notification.mp3'
+        ]);
+      })
+  )
 })
 
 self.addEventListener('activate', event => {
@@ -55,6 +63,9 @@ self.addEventListener('message', event => {
     // Attempt to show a notification to the user.
     self.registration.showNotification('MovementMinder', {
       body: message,
+      // icon: '/path/to/notification/icon.png',
+      // Add sound to the notification.
+      sound: 'src/notification/doorbell-notification.mp3',
     })
   }
 });

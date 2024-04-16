@@ -51,8 +51,7 @@ document.addEventListener('startBreak', event => {
 
 // Create the web components needed.
 const mainTimerElement = document.createElement('movement-minder-timer')
-const breakTimerElement = document.createElement('movement-minder-break-timer')
-const breakNotificationElement = document.createElement('movement-minder-break-notification')
+//const breakTimerElement = document.createElement('movement-minder-break-timer')
 
 // Add the components as children to the body element.
 document.body.appendChild(mainTimerElement)

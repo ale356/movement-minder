@@ -5,6 +5,9 @@ template.innerHTML = `
 </style>
 <div id="timerContainer">
     <div id="display">30:00</div>
+    <div id="notificationContainer">
+    <p id="notificationMessage">Time to take a walking break.</p>
+  </div>
     <button id="startPauseButton">Start</button>
     <button id="resetButton">Reset</button>
 </div>
@@ -44,6 +47,34 @@ customElements.define('movement-minder-timer',
     #currentTimeInSeconds;
 
     /**
+     * Reference to the start time value in minutes for the main timer.
+     *
+     * @type {Number}
+     */
+    #mainTimerTimeInSeconds;
+
+    /**
+     * Reference to the start time value in minutes for the break timer.
+     *
+     * @type {Number}
+     */
+    #breakTimerTimeInSeconds;
+
+    /**
+     * Reference to the notification container.
+     *
+     * @type {HTMLDivElement}
+     */
+    #notificationContainer
+
+    /**
+     * Break is active.
+     *
+     * @type {Boolean}
+     */
+    #breakIsActive
+
+    /**
      * Reference to the AudioContext instance.
      *
      * @type {AudioContext}
@@ -68,13 +99,17 @@ customElements.define('movement-minder-timer',
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true));
 
-      // Set the current time in seconds to 30 minutes.
-      this.#currentTimeInSeconds = 30 * 60;
+      // Set the basic start values for the timer.
+      this.#mainTimerTimeInSeconds = 30 * 60
+      this.#breakTimerTimeInSeconds = 5 * 60
+      this.#currentTimeInSeconds = 30 * 60
+      this.#breakIsActive = false
 
       // Get references to elements to change.
       this.#display = this.shadowRoot.querySelector('#display');
       this.#startPauseButton = this.shadowRoot.querySelector('#startPauseButton');
       this.#resetButton = this.shadowRoot.querySelector('#resetButton');
+      this.#notificationContainer = this.shadowRoot.querySelector('#notificationContainer');
 
       // Add event listeners.
       this.#startPauseButton.addEventListener('click', () => this.#toggleTimer());
@@ -140,7 +175,7 @@ customElements.define('movement-minder-timer',
         this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
         // Test the timer when it reaches zero.
-        this.#setCurrentTimeInSeconds(0)
+       // this.#setCurrentTimeInSeconds(0)
 
         // Check if the timer has reached 0.
         if (this.#getCurrentTimeInSeconds() <= 0) {
@@ -204,11 +239,16 @@ customElements.define('movement-minder-timer',
         this.#startPauseButton.textContent = 'Start';
       }
 
-      // Reset the current time in seconds.
-      this.#setCurrentTimeInSeconds(30 * 60)
-
-      // Update the display with the reset time.
-      this.#updateDisplay(this.#getCurrentTimeInSeconds());
+      // Reset timer depending on break or main.
+      if (this.#breakIsActive == true) {
+        // Reset the timer to break.
+        this.#setCurrentTimeInSeconds(this.#breakTimerTimeInSeconds)
+        this.#updateDisplay(this.#getCurrentTimeInSeconds());
+      } else {
+        // Reset the timer to main.
+        this.#setCurrentTimeInSeconds(this.#mainTimerTimeInSeconds)
+        this.#updateDisplay(this.#getCurrentTimeInSeconds());
+      }
 
       // Clear the interval to pause the timer.
       clearInterval(this.timerInterval);
@@ -251,25 +291,21 @@ customElements.define('movement-minder-timer',
      * Handles the logic when the timer ends.
      */
     #handleTimerEnd() {
+
+      // Decide if its break time or main time.
+      if (this.#breakIsActive == true) {
+        // Setup timer for main.
+        this.#handleStartMainEvent()
+      } else {
+        // Setup timer for break.
+        this.#handleStartBreakEvent()
+      }
+
       // Create the audio context and oscillator.
       this.#createAudioContextAndOscillator();
 
       // Play the sound.
       this.#playSound();
-
-      // Reset the timer.
-      this.#resetTimer()
-
-      // Update the browser tab text.
-      document.title = 'The time is up! - 00:00'
-
-      // Emit the "startBreak" event.
-      const customMessage = 'Time to take a break!'
-      this.dispatchEvent(new window.CustomEvent('startBreak', {
-        composed: false,      // Defaults to false but added for clearity.
-        bubbles: true,         // Needed. We want to bubble the event to todo-list and further.
-        detail: customMessage
-      }))
 
       console.log('Timer hit zero!')
 
@@ -279,6 +315,53 @@ customElements.define('movement-minder-timer',
      * Called after the element is inserted into the DOM.
      */
     async connectedCallback() {
+      // Hide the element from the user.
+      this.#notificationContainer.setAttribute('hidden', '')
+    }
+
+    /**
+     * Handle the "startBreak" event.
+     */
+    #handleStartBreakEvent() {
+      // Start the break timer.
+      console.log('Received startBreak event');
+      this.#notificationContainer.removeAttribute('hidden', '')
+      this.#breakIsActive = true
+
+      // Reset the timer.
+      this.#resetTimer()
+
+      // Update the browser tab text.
+      document.title = '00:00 - Time to take a break!'
+
+      // Emit the "startBreak" event.
+      this.dispatchEvent(new window.CustomEvent('startBreak', {
+        composed: false,      // Defaults to false but added for clearity.
+        bubbles: true,         // Needed. We want to bubble the event to todo-list and further.
+        detail: 'Time to take a break!'
+      }))
+    }
+
+    /**
+     * Handle the "startMain" event.
+     */
+    #handleStartMainEvent() {
+      // Start the main timer.
+      this.#notificationContainer.setAttribute('hidden', '')
+      this.#breakIsActive = false
+
+      // Reset the timer.
+      this.#resetTimer()
+
+      // Set the browser tab text.
+      document.title = '00:00 - Break is finished!'
+
+      // Emit the "startBreak" event.
+      this.dispatchEvent(new window.CustomEvent('startBreak', {
+        composed: false,      // Defaults to false but added for clearity.
+        bubbles: true,         // Needed. We want to bubble the event to todo-list and further.
+        detail: 'Break is finished!'
+      }))
 
     }
 
