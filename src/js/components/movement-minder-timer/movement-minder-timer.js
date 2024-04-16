@@ -4,14 +4,27 @@ template.innerHTML = `
 <style>
 </style>
 <div id="timerContainer">
-    <div id="display">30:00</div>
-    <div id="messageContainer">
-    <p id="breakMessage">Time to take a walking break.</p>
-  </div>
-    <button id="startPauseButton">Start</button>
-    <button id="resetButton">Reset</button>
-    <button id="configureButton">Configure</button>
-    <div id="configurationContainer">Config container</div>
+  <div id="display">30:00</div>
+  <div id="messageContainer">
+  <p id="breakMessage">Time to take a walking break.</p>
+</div>
+<button id="startPauseButton">Start</button>
+<button id="resetButton">Reset</button>
+<button id="configureButton">Configure</button>
+<div id="configurationContainer">
+  <form id="timerConfigForm">
+    <div id="mainTimeContainer">
+      <label for="mainTimeInput">Main Time:</label>
+      <input type="number" id="mainTimeInput" name="mainTime" placeholder="Enter main time in minutes" min="1" max="240">
+    </div>
+    <div id="breakTimeContainer">
+      <label for="breakTimeInput">Break Time:</label>
+      <input type="number" id="breakTimeInput" name="breakTime" placeholder="Enter break time in minutes" min="1" max="1000">
+    </div>
+    <button type="submit">Confirm</button>
+  </form>
+</div>
+
 </div>
 `;
 
