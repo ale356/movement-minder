@@ -10,6 +10,7 @@ template.innerHTML = `
   </div>
     <button id="startPauseButton">Start</button>
     <button id="resetButton">Reset</button>
+    <button id="configureButton">Configure</button>
 </div>
 `;
 
@@ -40,6 +41,13 @@ customElements.define('movement-minder-timer',
     #resetButton;
 
     /**
+     * Reference to the configute button.
+     *
+     * @type {HTMLButtonElement}
+     */
+    #configureButton;
+
+    /**
      * Reference to the current time in seconds.
      *
      * @type {Number}
@@ -61,11 +69,11 @@ customElements.define('movement-minder-timer',
     #breakTimerTimeInSeconds;
 
     /**
-     * Reference to the notification container.
+     * Reference to the message container.
      *
      * @type {HTMLDivElement}
      */
-    #notificationContainer
+    #messageContainer
 
     /**
      * Break is active.
@@ -109,11 +117,13 @@ customElements.define('movement-minder-timer',
       this.#display = this.shadowRoot.querySelector('#display');
       this.#startPauseButton = this.shadowRoot.querySelector('#startPauseButton');
       this.#resetButton = this.shadowRoot.querySelector('#resetButton');
-      this.#notificationContainer = this.shadowRoot.querySelector('#notificationContainer');
+      this.#configureButton = this.shadowRoot.querySelector('#configureButton')
+      this.#messageContainer = this.shadowRoot.querySelector('#notificationContainer');
 
       // Add event listeners.
       this.#startPauseButton.addEventListener('click', () => this.#toggleTimer());
       this.#resetButton.addEventListener('click', () => this.#resetTimer());
+      this.#configureButton.addEventListener('click', () => this.#showConfiguration());
     }
 
     /**
@@ -315,8 +325,8 @@ customElements.define('movement-minder-timer',
      * Called after the element is inserted into the DOM.
      */
     async connectedCallback() {
-      // Hide the element from the user.
-      this.#notificationContainer.setAttribute('hidden', '')
+      // Hide the message container from the user.
+      this.#messageContainer.setAttribute('hidden', '')
     }
 
     /**
@@ -325,7 +335,7 @@ customElements.define('movement-minder-timer',
     #handleStartBreakEvent() {
       // Start the break timer.
       console.log('Received startBreak event');
-      this.#notificationContainer.removeAttribute('hidden', '')
+      this.#messageContainer.removeAttribute('hidden', '')
       this.#breakIsActive = true
 
       // Reset the timer.
@@ -347,7 +357,7 @@ customElements.define('movement-minder-timer',
      */
     #handleStartMainEvent() {
       // Start the main timer.
-      this.#notificationContainer.setAttribute('hidden', '')
+      this.#messageContainer.setAttribute('hidden', '')
       this.#breakIsActive = false
 
       // Reset the timer.
@@ -369,6 +379,12 @@ customElements.define('movement-minder-timer',
      * Called after the element has been removed from the DOM.
      */
     disconnectedCallback() {
+    }
+
+    /**
+     * Shows the configuration settings.
+     */
+    #showConfiguration() {
     }
   }
 );
