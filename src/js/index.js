@@ -6,8 +6,6 @@
  */
 
 import './components/movement-minder-timer/movement-minder-timer'
-import './components/movement-minder-break-timer/movement-minder-break-timer'
-import './components/movement-minder-break-notification/movement-minder-break-notification'
 
 // Check if the browser supports the Notification API.
 if ("Notification" in window) {
@@ -51,9 +49,6 @@ document.addEventListener('startBreak', event => {
 
 // Create the web components needed.
 const mainTimerElement = document.createElement('movement-minder-timer')
-//const breakTimerElement = document.createElement('movement-minder-break-timer')
 
 // Add the components as children to the body element.
 document.body.appendChild(mainTimerElement)
-document.body.appendChild(breakTimerElement)
-
