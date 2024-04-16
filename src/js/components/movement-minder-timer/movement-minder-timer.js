@@ -11,6 +11,7 @@ template.innerHTML = `
     <button id="startPauseButton">Start</button>
     <button id="resetButton">Reset</button>
     <button id="configureButton">Configure</button>
+    <div id="configurationContainer">Config container</div>
 </div>
 `;
 
@@ -46,6 +47,13 @@ customElements.define('movement-minder-timer',
      * @type {HTMLButtonElement}
      */
     #configureButton;
+
+    /**
+     * Reference to the configuration container.
+     *
+     * @type {HTMLDivElement}
+     */
+    #configurationContainer
 
     /**
      * Reference to the current time in seconds.
@@ -118,6 +126,7 @@ customElements.define('movement-minder-timer',
       this.#startPauseButton = this.shadowRoot.querySelector('#startPauseButton');
       this.#resetButton = this.shadowRoot.querySelector('#resetButton');
       this.#configureButton = this.shadowRoot.querySelector('#configureButton')
+      this.#configurationContainer = this.shadowRoot.querySelector('#configurationContainer')
       this.#messageContainer = this.shadowRoot.querySelector('#notificationContainer');
 
       // Add event listeners.
@@ -325,8 +334,10 @@ customElements.define('movement-minder-timer',
      * Called after the element is inserted into the DOM.
      */
     async connectedCallback() {
-      // Hide the message container from the user.
+      // Hide elements from the user.
       this.#messageContainer.setAttribute('hidden', '')
+      this.#configurationContainer.setAttribute('hidden', '')
+
     }
 
     /**
@@ -385,6 +396,7 @@ customElements.define('movement-minder-timer',
      * Shows the configuration settings.
      */
     #showConfiguration() {
+      this.#configurationContainer.removeAttribute('hidden', '')
     }
   }
 );
