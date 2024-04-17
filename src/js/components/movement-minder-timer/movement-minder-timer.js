@@ -216,7 +216,7 @@ customElements.define('movement-minder-timer',
         this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
         // Test the timer when it reaches zero.
-        // this.#setCurrentTimeInSeconds(0)
+         this.#setCurrentTimeInSeconds(0)
 
         // Check if the timer has reached 0.
         if (this.#getCurrentTimeInSeconds() <= 0) {
