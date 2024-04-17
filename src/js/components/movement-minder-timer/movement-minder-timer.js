@@ -439,6 +439,14 @@ customElements.define('movement-minder-timer',
       console.log(breakTime)
 
       // Set the new time.
+      this.#mainTimerTimeInSeconds = mainTime * 60
+      this.#breakTimerTimeInSeconds = breakTime * 60
+
+      // Reset the timer.
+      this.#resetTimer()
+
+      // Hide the configuration form.
+      this.#toggleConfiguration()
     }
   }
 );
