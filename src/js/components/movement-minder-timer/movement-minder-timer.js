@@ -12,16 +12,16 @@ template.innerHTML = `
 <button id="resetButton">Reset</button>
 <button id="configureButton">Configure</button>
 <div id="configurationContainer">
-  <form id="timerConfigForm">
+  <form id="timerConfigurationForm">
     <div id="mainTimeContainer">
       <label for="mainTimeInput">Main Time:</label>
-      <input type="number" id="mainTimeInput" name="mainTime" placeholder="Enter main time in minutes" min="1" max="240">
+      <input type="number" id="mainTimeInput" name="mainTime" placeholder="Enter main time in minutes" min="1" max="240" required>
     </div>
     <div id="breakTimeContainer">
       <label for="breakTimeInput">Break Time:</label>
-      <input type="number" id="breakTimeInput" name="breakTime" placeholder="Enter break time in minutes" min="1" max="1000">
+      <input type="number" id="breakTimeInput" name="breakTime" placeholder="Enter break time in minutes" min="1" max="1440" required>
     </div>
-    <button type="submit">Confirm</button>
+    <button id="confirmButton" type="submit">Confirm</button>
   </form>
 </div>
 
@@ -55,11 +55,18 @@ customElements.define('movement-minder-timer',
     #resetButton;
 
     /**
-     * Reference to the configute button.
+     * Reference to the configure button.
      *
      * @type {HTMLButtonElement}
      */
     #configureButton;
+
+    /**
+     * Reference to the timer configuration form.
+     *
+     * @type {HTMLFormElement}
+     */
+    #timerConfigurationForm;
 
     /**
      * Reference to the configuration container.
@@ -139,6 +146,7 @@ customElements.define('movement-minder-timer',
       this.#startPauseButton = this.shadowRoot.querySelector('#startPauseButton');
       this.#resetButton = this.shadowRoot.querySelector('#resetButton');
       this.#configureButton = this.shadowRoot.querySelector('#configureButton')
+      this.#timerConfigurationForm = this.shadowRoot.querySelector('#timerConfigurationForm')
       this.#configurationContainer = this.shadowRoot.querySelector('#configurationContainer')
       this.#messageContainer = this.shadowRoot.querySelector('#messageContainer');
 
@@ -146,6 +154,7 @@ customElements.define('movement-minder-timer',
       this.#startPauseButton.addEventListener('click', () => this.#toggleTimer());
       this.#resetButton.addEventListener('click', () => this.#resetTimer());
       this.#configureButton.addEventListener('click', () => this.#toggleConfiguration());
+      this.#timerConfigurationForm.addEventListener('submit', (event) => this.#handleConfirm(event));
     }
 
     /**
@@ -414,6 +423,22 @@ customElements.define('movement-minder-timer',
       } else {
         this.#configurationContainer.setAttribute('hidden', '');
       }
+    }
+
+    /**
+     * Handles the confirm logic.
+     */
+    #handleConfirm(event) {
+      // Prevent the default form submission behavior.
+      event.preventDefault();
+
+      // Collect input data.
+      const mainTime = this.shadowRoot.getElementById('mainTimeInput').value;
+      const breakTime = this.shadowRoot.getElementById('breakTimeInput').value;
+      console.log(mainTime)
+      console.log(breakTime)
+
+      // Set the new time.
     }
   }
 );
