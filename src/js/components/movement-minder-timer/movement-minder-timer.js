@@ -24,11 +24,15 @@ template.innerHTML = `
   }
 
   #configureButton {
-  position: absolute; /* Position the button absolutely within the container */
-  top: 10px; /* Adjust as needed */
-  right: 10px; /* Adjust as needed */
+  position: absolute;
+  top: 10px;
+  right: 10px;
   padding: 5px 10px;
-  }
+  display: flex; /* Add this line */
+  align-items: center; /* Add this line */
+  justify-content: center; /* Add this line */
+}
+
 
   #configurationContainer {
   margin-top: 70px;
