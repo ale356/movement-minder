@@ -18,6 +18,7 @@ template.innerHTML = `
   text-transform: uppercase;
   }
 
+
   #breakMessage {
   font-family: 'Montserrat', sans-serif; /* Specify Montserrat font family */
   font-weight: 700; /* Specify bold (700) font weight */
@@ -32,7 +33,6 @@ template.innerHTML = `
   align-items: center; /* Add this line */
   justify-content: center; /* Add this line */
 }
-
 
   #configurationContainer {
   margin-top: 70px;
@@ -300,7 +300,7 @@ customElements.define('movement-minder-timer',
         this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
         // Test the timer when it reaches zero.
-        this.#setCurrentTimeInSeconds(0)
+       // this.#setCurrentTimeInSeconds(0)
 
         // Check if the timer has reached 0.
         if (this.#getCurrentTimeInSeconds() <= 0) {

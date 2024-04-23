@@ -6,6 +6,7 @@
  */
 
 import './components/movement-minder-timer/movement-minder-timer'
+import './components/movement-minder-header/movement-minder-header'
 
 // Check if the browser supports the Notification API.
 if ("Notification" in window) {
@@ -46,9 +47,13 @@ document.addEventListener('startBreak', event => {
   });
 });
 
-
 // Create the web components needed.
-const mainTimerElement = document.createElement('movement-minder-timer')
+const timerElement = document.createElement('movement-minder-timer')
+const headerComponent = document.createElement('movement-minder-header')
+
+// Select the header element.
+const headerElement = document.querySelector('header')
 
 // Add the components as children to the body element.
-document.body.appendChild(mainTimerElement)
+document.body.appendChild(timerElement)
+headerElement.appendChild(headerComponent)
