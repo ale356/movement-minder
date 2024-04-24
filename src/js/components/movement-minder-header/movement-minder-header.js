@@ -6,23 +6,50 @@ template.innerHTML = `
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
   #headerContainer {
+    display: flex; /* Use Flexbox */
+  justify-content: space-between; /* Distribute children with equal space between them */
+  align-items: center; /* Vertically center children */
   position: relative;
-  margin: 100px auto;
+  margin: auto;
   max-width: 400px;
   text-align: center;
   padding: 20px;
   font-family: 'Montserrat', sans-serif; /* Specify Montserrat font family */
   font-weight: 700; /* Specify bold (700) font weight */
-  border-radius: 10px;
-  background-color: white;
   text-transform: uppercase;
+  border-bottom: 2px solid #DFDFDF; /* Add a solid black border at the bottom */
   }
+
+  #logo {
+    margin: 10px;
+    background-color: #37C59C;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #logoContainer {
+  display: flex; /* Use Flexbox */
+  align-items: center; /* Align children vertically */
+}
+
+  h1 {
+    font-size: small;
+  }
+
+  nav {
+  display: flex; /* Use Flexbox */
+  align-items: center; /* Align children vertically */
+}
 </style>
 <div id="headerContainer">
-  <div class="logo">Your Logo Here</div>
+  <div id="logoContainer">
+    <svg id="logo" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#000000" d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>
+    <h1>MovementMinder</h1>
+  </div>
   <nav>
-    <button id="startPauseButton">Start</button>
-    <button id="resetButton">Reset</button>
+  <slot name="statistics"></slot>
+  <slot name="login-register"></slot>
   </nav>
 </div>
 `
