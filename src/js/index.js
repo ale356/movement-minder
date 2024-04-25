@@ -7,6 +7,7 @@
 
 import './components/movement-minder-timer/movement-minder-timer'
 import './components/movement-minder-header/movement-minder-header'
+import './components/movement-minder-statistics/movement-minder-statistics'
 
 // Check if the browser supports the Notification API.
 if ("Notification" in window) {
@@ -50,6 +51,7 @@ document.addEventListener('startBreak', event => {
 // Create the web components needed.
 const timerElement = document.createElement('movement-minder-timer')
 const headerComponent = document.createElement('movement-minder-header')
+const statisticsElement = document.createElement('movement-minder-statistics')
 
 // Select the header element.
 const headerElement = document.querySelector('header')
@@ -57,3 +59,4 @@ const headerElement = document.querySelector('header')
 // Add the components as children to the body element.
 document.body.appendChild(timerElement)
 headerElement.appendChild(headerComponent)
+document.body.appendChild(statisticsElement)
