@@ -58,8 +58,12 @@ const loginRegisterElement = document.createElement('movement-minder-login-regis
 // Select the header element.
 const headerElement = document.querySelector('header')
 
+// Set the statistics and login/register components as slot content.
+statisticsElement.setAttribute('slot', 'statistics');
+loginRegisterElement.setAttribute('slot', 'loginRegister');
+
 // Add the components as children to the body element.
 document.body.appendChild(timerElement)
 headerElement.appendChild(headerComponent)
-//document.body.appendChild(statisticsElement)
-document.body.appendChild(loginRegisterElement)
+headerComponent.appendChild(statisticsElement)
+headerComponent.appendChild(loginRegisterElement)

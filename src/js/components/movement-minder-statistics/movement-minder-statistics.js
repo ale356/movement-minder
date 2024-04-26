@@ -6,7 +6,7 @@ template.innerHTML = `
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
   #statisticsButton {
-  position: absolute;
+  /*position: absolute;*/
   top: 10px;
   right: 10px;
   padding: 5px 10px;
