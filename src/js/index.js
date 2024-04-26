@@ -8,6 +8,7 @@
 import './components/movement-minder-timer/movement-minder-timer'
 import './components/movement-minder-header/movement-minder-header'
 import './components/movement-minder-statistics/movement-minder-statistics'
+import './components/movement-minder-login-register/movement-minder-login-register'
 
 // Check if the browser supports the Notification API.
 if ("Notification" in window) {
@@ -52,6 +53,7 @@ document.addEventListener('startBreak', event => {
 const timerElement = document.createElement('movement-minder-timer')
 const headerComponent = document.createElement('movement-minder-header')
 const statisticsElement = document.createElement('movement-minder-statistics')
+const loginRegisterElement = document.createElement('movement-minder-login-register')
 
 // Select the header element.
 const headerElement = document.querySelector('header')
@@ -59,4 +61,5 @@ const headerElement = document.querySelector('header')
 // Add the components as children to the body element.
 document.body.appendChild(timerElement)
 headerElement.appendChild(headerComponent)
-document.body.appendChild(statisticsElement)
+//document.body.appendChild(statisticsElement)
+document.body.appendChild(loginRegisterElement)

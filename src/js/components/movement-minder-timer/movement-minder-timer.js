@@ -76,10 +76,10 @@ template.innerHTML = `
 
 label {
   font-size: 18px;
-  margin-bottom: 5px;
 }
 
 input[type="number"] {
+  margin-top: 10px;
   width: 200px;
   padding: 8px;
   font-size: 16px;
