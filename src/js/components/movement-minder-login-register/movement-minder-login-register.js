@@ -93,7 +93,7 @@ template.innerHTML = `
   margin: 10px;
 }
 
-input[type="text"] {
+input {
   margin-top: 10px;
   width: 200px;
   padding: 8px;
@@ -102,7 +102,7 @@ input[type="text"] {
   border-radius: 5px;
 }
 
-#confirmButton {
+#loginButton {
   margin-top: 130px;
   margin-bottom: 170px;
 }
@@ -129,9 +129,9 @@ input[type="text"] {
       </div>
       <div id="passWordContainer">
         <label for="passWordInput"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#a6a6a6" d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></svg></label>
-        <input type="text" id="passWordInput" name="passWord" placeholder="Password" min="1" max="1440" required>
+        <input type="password" id="passWordInput" name="passWord" placeholder="Password" min="1" max="1440" required>
       </div>
-      <button id="confirmButton" type="submit">Login</button>
+      <button id="loginButton" type="submit">Login</button>
     </form>
     <span id="signupText">Don't have an account? </span><span id="signupLink">Sign Up</span>
   </div>
@@ -179,6 +179,13 @@ customElements.define('movement-minder-login-register',
     #closeButton;
 
     /**
+     * Reference to the login form.
+     *
+     * @type {HTMLButtonElement}
+     */
+    #loginForm;
+
+    /**
      * Creates an instance of the current type.
      */
     constructor() {
@@ -195,10 +202,12 @@ customElements.define('movement-minder-login-register',
       this.#sedentaryTimeSpan = this.shadowRoot.querySelector('#sedentaryTime')
       this.#breakTimeSpan = this.shadowRoot.querySelector('#breakTime')
       this.#closeButton = this.shadowRoot.querySelector('#closeButton')
+      this.#loginForm = this.shadowRoot.querySelector('#loginForm')
 
       // Add event listeners.
       this.#loginRegisterButton.addEventListener('click', () => this.#toggleLoginRegister());
       this.#closeButton.addEventListener('click', () => this.#toggleLoginRegister());
+      this.#loginForm.addEventListener('submit', (event) => this.#handleSubmit(event));
     }
 
     /**
@@ -244,6 +253,14 @@ customElements.define('movement-minder-login-register',
       } else {
         this.#loginRegisterContainer.setAttribute('hidden', '');
       }
+    }
+
+    /**
+   * Handles the event submit on the login form.
+   */
+    #handleSubmit(event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+      console.log('submited login')
     }
   }
 );
