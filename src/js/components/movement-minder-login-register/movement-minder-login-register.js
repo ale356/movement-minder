@@ -116,12 +116,18 @@ input {
   color: #A6A6A6; /* Text color */
 }
 
+#loginErrorMessage {
+  color: red;
+  margin: 30px auto;
+}
+
 </style>
 <button id="loginRegisterButton"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg></button>
 <div id="loginRegisterContainer">
 <button id="closeButton">&times;</button>
   <div id="loginRegisterContent">
     <h2>Login</h2>
+    <div id="loginErrorMessage">Invalid username or password.</div>
     <form id="loginForm">
       <div id="userNameContainer">
         <label for="userNameInput"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#a6a6a6" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg></label>
@@ -186,6 +192,13 @@ customElements.define('movement-minder-login-register',
     #loginForm;
 
     /**
+     * Reference to the login error message container.
+     *
+     * @type {HTMLDivElement}
+     */
+    #loginErrorMessageContainer;
+
+    /**
      * Creates an instance of the current type.
      */
     constructor() {
@@ -203,6 +216,7 @@ customElements.define('movement-minder-login-register',
       this.#breakTimeSpan = this.shadowRoot.querySelector('#breakTime')
       this.#closeButton = this.shadowRoot.querySelector('#closeButton')
       this.#loginForm = this.shadowRoot.querySelector('#loginForm')
+      this.#loginErrorMessageContainer = this.shadowRoot.querySelector('#loginErrorMessage')
 
       // Add event listeners.
       this.#loginRegisterButton.addEventListener('click', () => this.#toggleLoginRegister());
@@ -216,7 +230,7 @@ customElements.define('movement-minder-login-register',
     async connectedCallback() {
       // Hide elements from the user.
       this.#loginRegisterContainer.setAttribute('hidden', '')
-
+      this.#loginErrorMessageContainer.setAttribute('hidden', '')
     }
 
     /**
@@ -292,6 +306,7 @@ customElements.define('movement-minder-login-register',
           // Handle error response.
           console.error('Login failed:', response.status);
           // Display error message to the user.
+          this.#loginErrorMessageContainer.removeAttribute('hidden')
         }
       } catch (error) {
         console.error('Error:', error);
