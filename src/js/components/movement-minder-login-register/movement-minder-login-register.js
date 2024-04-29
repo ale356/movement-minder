@@ -102,21 +102,21 @@ input {
   border-radius: 5px;
 }
 
-#loginButton {
-  margin-top: 130px;
-  margin-bottom: 170px;
+.loginRegisterButton {
+  margin-top: 170px;
+  margin-bottom: 130px;
 }
 
-#signupLink {
+#signUpLink {
   color: #37C59C; /* Link color */
   cursor: pointer;
 }
 
-#signupText {
+#signUpText {
   color: #A6A6A6; /* Text color */
 }
 
-#loginErrorMessage {
+.errorMessage {
   color: red;
   margin: 30px auto;
 }
@@ -126,20 +126,41 @@ input {
 <div id="loginRegisterContainer">
 <button id="closeButton">&times;</button>
   <div id="loginRegisterContent">
-    <h2>Login</h2>
-    <div id="loginErrorMessage">Invalid username or password.</div>
-    <form id="loginForm">
-      <div id="userNameContainer">
-        <label for="userNameInput"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#a6a6a6" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg></label>
-        <input type="text" id="userNameInput" name="userName" placeholder="Username" min="1" max="240" required>
-      </div>
-      <div id="passWordContainer">
-        <label for="passWordInput"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#a6a6a6" d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></svg></label>
-        <input type="password" id="passWordInput" name="passWord" placeholder="Password" min="1" max="1440" required>
-      </div>
-      <button id="loginButton" type="submit">Login</button>
-    </form>
-    <span id="signupText">Don't have an account? </span><span id="signupLink">Sign Up</span>
+    <div id="loginContent">
+      <h2>Login</h2>
+      <div class="errorMessage" id="loginErrorMessage">Invalid username or password.</div>
+      <form id="loginForm">
+        <div id="userNameContainer">
+          <label for="userNameInput"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#a6a6a6" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg></label>
+          <input type="text" id="userNameInput" name="userName" placeholder="Username" min="1" max="240" required>
+        </div>
+        <div id="passWordContainer">
+          <label for="passWordInput"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#a6a6a6" d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></svg></label>
+          <input type="password" id="passWordInput" name="passWord" placeholder="Password" min="1" max="1440" required>
+        </div>
+        <button class="loginRegisterButton" id="loginButton" type="submit">Login</button>
+      </form>
+      <span id="signUpText">Don't have an account? </span><span id="signUpLink">Sign Up</span>
+    </div>
+    <div id="registerContent">
+      <h2>Register</h2>
+      <div class="errorMessage" id="registerErrorMessage">Invalid credentials.</div>
+      <form id="registerForm">
+        <div id="userNameContainer">
+          <label for="userNameInput"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#a6a6a6" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg></label>
+          <input type="text" id="userNameInput" name="userName" placeholder="Username" min="1" max="240" required>
+        </div>
+        <div id="emailContainer">
+          <label for="emailInput"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#a6a6a6" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></label>
+          <input type="text" id="emailInput" name="email" placeholder="Email" min="1" max="240" required>
+        </div>
+        <div id="passWordContainer">
+          <label for="passWordInput"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#a6a6a6" d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></svg></label>
+          <input type="password" id="passWordInput" name="passWord" placeholder="Password" min="1" max="1440" required>
+        </div>
+        <button class="loginRegisterButton" id="registerButton" type="submit">Register</button>
+      </form>
+    </div>
   </div>
 </div>
 `;
@@ -192,11 +213,46 @@ customElements.define('movement-minder-login-register',
     #loginForm;
 
     /**
+     * Reference to the register form.
+     *
+     * @type {HTMLButtonElement}
+     */
+    #registerForm;
+
+    /**
      * Reference to the login error message container.
      *
      * @type {HTMLDivElement}
      */
     #loginErrorMessageContainer;
+    
+    /**
+     * Reference to the register error message container.
+     *
+     * @type {HTMLDivElement}
+     */
+    #registerErrorMessageContainer;
+
+    /**
+     * Reference to the sign up link.
+     *
+     * @type {HTMLSpanElement}
+     */
+    #signUpLink;
+
+    /**
+     * Reference to the login content container.
+     *
+     * @type {HTMLDivElement}
+     */
+    #loginContentContainer;
+
+    /**
+     * Reference to the register content container.
+     *
+     * @type {HTMLDivElement}
+     */
+    #registerContentContainer;
 
     /**
      * Creates an instance of the current type.
@@ -216,12 +272,19 @@ customElements.define('movement-minder-login-register',
       this.#breakTimeSpan = this.shadowRoot.querySelector('#breakTime')
       this.#closeButton = this.shadowRoot.querySelector('#closeButton')
       this.#loginForm = this.shadowRoot.querySelector('#loginForm')
+      this.#registerForm = this.shadowRoot.querySelector('#registerForm')
       this.#loginErrorMessageContainer = this.shadowRoot.querySelector('#loginErrorMessage')
+      this.#registerErrorMessageContainer = this.shadowRoot.querySelector('#registerErrorMessage')
+      this.#signUpLink = this.shadowRoot.querySelector('#signUpLink')
+      this.#loginContentContainer = this.shadowRoot.querySelector('#loginContent')
+      this.#registerContentContainer = this.shadowRoot.querySelector('#registerContent')
 
       // Add event listeners.
       this.#loginRegisterButton.addEventListener('click', () => this.#toggleLoginRegister());
       this.#closeButton.addEventListener('click', () => this.#toggleLoginRegister());
-      this.#loginForm.addEventListener('submit', (event) => this.#handleSubmit(event));
+      this.#loginForm.addEventListener('submit', (event) => this.#handleSubmitLogin(event));
+      this.#registerForm.addEventListener('submit', (event) => this.#handleSubmitRegister(event));
+      this.#signUpLink.addEventListener('click', () => this.#showRegisterForm());
     }
 
     /**
@@ -231,6 +294,8 @@ customElements.define('movement-minder-login-register',
       // Hide elements from the user.
       this.#loginRegisterContainer.setAttribute('hidden', '')
       this.#loginErrorMessageContainer.setAttribute('hidden', '')
+      this.#registerErrorMessageContainer.setAttribute('hidden', '')
+      this.#registerContentContainer.setAttribute('hidden', '')
     }
 
     /**
@@ -240,32 +305,19 @@ customElements.define('movement-minder-login-register',
     }
 
     /**
-     * Make a GET fetch request to get the users MovementMinder data from the server.
-     */
-    #fetchUserData() {
-      // Fetch the user data from the server.
-    }
-
-
-    /**
-     * Show user data in loginRegister popup window.
-     */
-    #showUserData() {
-      // Fetch the user data from the server.
-
-      // Show the data for the user.
-    }
-
-    /**
      * Shows the loginRegister popup window.
      */
     #toggleLoginRegister() {
       if (this.#loginRegisterContainer.hasAttribute('hidden')) {
+        // This logic runs when you open the popup window.
         this.#loginRegisterContainer.removeAttribute('hidden');
-        // Show user data from the server.
+        this.#loginContentContainer.removeAttribute('hidden')
+        this.#loginErrorMessageContainer.setAttribute('hidden', '')
 
       } else {
+        // This logic runs when you close the popup window.
         this.#loginRegisterContainer.setAttribute('hidden', '');
+        this.#registerContentContainer.setAttribute('hidden', '')
       }
     }
 
@@ -273,7 +325,7 @@ customElements.define('movement-minder-login-register',
      * Handles the event submit on the login form.
      * @param event
      */
-    async #handleSubmit(event) {
+    async #handleSubmitLogin(event) {
 
       // Prevent the default form submission behavior.
       event.preventDefault();
@@ -302,6 +354,7 @@ customElements.define('movement-minder-login-register',
           // Handle successful login.
           console.log('Login successful');
           // Redirect or perform other actions.
+          this.#loginErrorMessageContainer.setAttribute('hidden')
         } else {
           // Handle error response.
           console.error('Login failed:', response.status);
@@ -312,6 +365,65 @@ customElements.define('movement-minder-login-register',
         console.error('Error:', error);
         // Handle network errors
       }
+    }
+
+    /**
+     * Handles the event submit on the register form.
+     * @param event
+     */
+    async #handleSubmitRegister(event) {
+
+      // Prevent the default form submission behavior.
+      event.preventDefault();
+      console.log('submited register')
+
+      // Get the form data.
+      const formData = new FormData(event.target);
+
+      // Convert the form data to JSON.
+      const jsonData = {};
+      formData.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+
+      // Make a POST request to the server API.
+      try {
+        const response = await fetch('your_api_endpoint_here', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(jsonData)
+        });
+
+        if (response.ok) {
+          // Handle successful login.
+          console.log('Register successful');
+          // Redirect or perform other actions.
+          this.#registerErrorMessageContainer.setAttribute('hidden', '')
+          this.#registerContentContainer.setAttribute('hidden', '')
+          this.#loginContentContainer.removeAttribute('hidden')
+        } else {
+          // Handle error response.
+          console.error('Register failed:', response.status);
+          // Display error message to the user.
+          this.#registerErrorMessageContainer.removeAttribute('hidden')
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle network errors
+      }
+    }
+
+    /**
+     * Shows the Register form.
+     */
+    #showRegisterForm() {
+      // Hide the login form and content.
+      this.#loginContentContainer.setAttribute('hidden', '')
+
+      // Show the register form instead.
+      this.#registerContentContainer.removeAttribute('hidden')
     }
   }
 );
