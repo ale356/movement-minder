@@ -256,11 +256,47 @@ customElements.define('movement-minder-login-register',
     }
 
     /**
-   * Handles the event submit on the login form.
-   */
-    #handleSubmit(event) {
-      event.preventDefault(); // Prevent the default form submission behavior
+     * Handles the event submit on the login form.
+     * @param event
+     */
+    async #handleSubmit(event) {
+
+      // Prevent the default form submission behavior.
+      event.preventDefault();
       console.log('submited login')
+
+      // Get the form data.
+      const formData = new FormData(event.target);
+
+      // Convert the form data to JSON.
+      const jsonData = {};
+      formData.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+
+      // Make a POST request to the server API.
+      try {
+        const response = await fetch('your_api_endpoint_here', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(jsonData)
+        });
+
+        if (response.ok) {
+          // Handle successful login.
+          console.log('Login successful');
+          // Redirect or perform other actions.
+        } else {
+          // Handle error response.
+          console.error('Login failed:', response.status);
+          // Display error message to the user.
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle network errors
+      }
     }
   }
 );
