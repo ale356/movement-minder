@@ -350,11 +350,12 @@ customElements.define('movement-minder-login-register',
           body: JSON.stringify(jsonData)
         });
 
-        if (response.ok) {
+        if (!response.ok) {
           // Handle successful login.
           console.log('Login successful');
           // Redirect or perform other actions.
-          this.#loginErrorMessageContainer.setAttribute('hidden')
+          this.#loginErrorMessageContainer.setAttribute('hidden', '')
+          this.#loginRegisterContainer.setAttribute('hidden', '')
         } else {
           // Handle error response.
           console.error('Login failed:', response.status);

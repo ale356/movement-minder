@@ -7,6 +7,7 @@
 
 import './components/movement-minder-timer/movement-minder-timer'
 import './components/movement-minder-header/movement-minder-header'
+import './components/movement-minder-footer/movement-minder-footer'
 import './components/movement-minder-statistics/movement-minder-statistics'
 import './components/movement-minder-login-register/movement-minder-login-register'
 
@@ -52,6 +53,7 @@ document.addEventListener('startBreak', event => {
 // Create the web components needed.
 const timerElement = document.createElement('movement-minder-timer')
 const headerComponent = document.createElement('movement-minder-header')
+const footerElement = document.createElement('movement-minder-footer')
 const statisticsElement = document.createElement('movement-minder-statistics')
 const loginRegisterElement = document.createElement('movement-minder-login-register')
 
@@ -64,6 +66,7 @@ loginRegisterElement.setAttribute('slot', 'loginRegister');
 
 // Add the components as children to the body element.
 document.body.appendChild(timerElement)
+document.body.appendChild(footerElement)
 headerElement.appendChild(headerComponent)
 headerComponent.appendChild(statisticsElement)
 headerComponent.appendChild(loginRegisterElement)
