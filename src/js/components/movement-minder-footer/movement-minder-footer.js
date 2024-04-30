@@ -13,7 +13,7 @@ template.innerHTML = `
   margin: auto;
   max-width: 400px;
   text-align: center;
-  padding: 20px;
+  padding: 10px;
   font-family: 'Montserrat', sans-serif; /* Specify Montserrat font family */
   font-weight: 700; /* Specify bold (700) font weight */
   text-transform: uppercase;
