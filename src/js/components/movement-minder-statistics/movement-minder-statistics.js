@@ -17,7 +17,6 @@ template.innerHTML = `
 
   #statisticsContainer {
   /*margin: 100px auto;*/
-  max-width: 400px;
   text-align: center;
   font-family: 'Montserrat', sans-serif; /* Specify Montserrat font family */
   font-weight: 700; /* Specify bold (700) font weight */
@@ -87,6 +86,47 @@ template.innerHTML = `
   span {
     color: #37C59C;
   }
+
+    /* Media queries for responsiveness */
+    @media screen and (min-width: 405px) and (max-width: 550px) {
+
+#closeButton {
+  font-size: 60px;
+  margin: 15px;
+}
+
+#statisticsContent {
+font-size: 24px; 
+padding: 40px;
+}
+
+.loginRegisterButton {
+margin-bottom: 200px;
+}
+
+#statisticsButton svg {
+  padding: 6px 12px;
+  transform: scale(1.6);
+}
+
+}
+
+@media screen and (min-width: 550px) {
+#closeButton {
+  font-size: 90px;
+  margin: 30px;
+}
+
+#statisticsContent {
+font-size: 44px; 
+padding: 40px;
+}
+
+#statisticsButton svg {
+  padding: 10px 20px;
+  transform: scale(2);
+}
+}
 
 </style>
 <button id="statisticsButton"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z"/></svg></button>

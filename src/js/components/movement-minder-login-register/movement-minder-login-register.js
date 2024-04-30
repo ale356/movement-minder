@@ -148,6 +148,11 @@ button {
 #loginForm svg {
   transform: scale(1.5);
 }
+
+#loginRegisterButton svg {
+  padding: 6px 12px;
+  transform: scale(1.6);
+}
   }
 
   @media screen and (min-width: 550px) {
@@ -175,6 +180,11 @@ button {
 }
 
 #loginForm svg {
+  transform: scale(2);
+}
+
+#loginRegisterButton svg {
+  padding: 10px 20px;
   transform: scale(2);
 }
   }
