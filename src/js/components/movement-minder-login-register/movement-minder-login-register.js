@@ -124,17 +124,18 @@ input {
   @media screen and (min-width: 405px) and (max-width: 550px) {
 
     #closeButton {
-      font-size: 60px;
+      font-size: 50px;
       margin: 15px;
     }
 
     #loginRegisterContent {
-    font-size: 24px; 
-    padding: 40px;
+    font-size: 20px; 
+    padding: 30px;
     }
 
     .loginRegisterButton {
-    margin-bottom: 200px;
+    margin-bottom: 100px;
+    margin-top: 100px;
 }
 
 input {
@@ -142,7 +143,7 @@ input {
 }
 
 button {
-  font-size: 58px;
+  font-size: 48px;
 }
 
 #loginForm svg {
@@ -150,8 +151,8 @@ button {
 }
 
 #loginRegisterButton svg {
-  padding: 6px 12px;
-  transform: scale(1.6);
+  padding: 3px 6px;
+  transform: scale(1.3);
 }
   }
 

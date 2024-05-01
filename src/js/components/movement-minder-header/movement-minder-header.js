@@ -45,11 +45,11 @@ template.innerHTML = `
   @media screen and (min-width: 405px) and (max-width: 550px) {
 
 #logo {
-    transform: scale(1.4);
+    transform: scale(1.2);
   }
 
   h1 {
-    font-size: 17px;
+    font-size: 15px;
   }
 }
 
