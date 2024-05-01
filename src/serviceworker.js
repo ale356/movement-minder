@@ -64,8 +64,8 @@ self.addEventListener('message', event => {
     self.registration.showNotification('MovementMinder', {
       body: message,
       // icon: '/path/to/notification/icon.png',
-      // Add sound to the notification.
-      sound: 'src/notification/doorbell-notification.mp3',
+      // Add vibration to the notification.
+      vibrate: [200, 100, 200]
     })
   }
 });
