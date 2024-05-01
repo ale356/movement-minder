@@ -432,7 +432,7 @@ customElements.define('movement-minder-login-register',
           body: JSON.stringify(jsonData)
         });
 
-        if (!response.ok) {
+        if (response.ok) {
           // Handle successful login.
           console.log('Login successful');
           // Redirect or perform other actions.

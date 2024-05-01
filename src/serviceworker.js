@@ -63,7 +63,7 @@ self.addEventListener('message', event => {
     // Attempt to show a notification to the user.
     self.registration.showNotification('MovementMinder', {
       body: message,
-      // icon: '/path/to/notification/icon.png',
+      icon: 'img/movement-minder-icon-48px.png',
       // Add vibration to the notification.
       vibrate: [200, 100, 200]
     })
