@@ -6,12 +6,7 @@ template.innerHTML = `
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
   #footerContainer {
-  display: flex; /* Use Flexbox */
-  justify-content: space-between; /* Distribute children with equal space between them */
-  align-items: center; /* Vertically center children */
-  position: relative;
   margin: auto;
-  max-width: 400px;
   text-align: center;
   padding: 10px;
   font-family: 'Montserrat', sans-serif; /* Specify Montserrat font family */
@@ -20,6 +15,19 @@ template.innerHTML = `
   border-top: 2px solid #DFDFDF; /* Add a solid black border at the bottom */
   color: #A6A6A6;
   }
+
+    /* Media queries for responsiveness */
+    @media screen and (min-width: 405px) and (max-width: 550px) {
+      #footerContainer {
+    margin-top: 300px;
+  }
+}
+
+@media screen and (min-width: 550px) {
+  #footerContainer {
+    margin-top: 340px;
+  }
+}
 </style>
 <div id="footerContainer">
   <footer>
