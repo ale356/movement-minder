@@ -19,7 +19,7 @@ template.innerHTML = `
     /* Media queries for responsiveness */
     @media screen and (min-width: 405px) and (max-width: 550px) {
       #footerContainer {
-    margin-top: 300px;
+    margin-top: 10px;
   }
 }
 
