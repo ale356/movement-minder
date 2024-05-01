@@ -7,7 +7,7 @@ template.innerHTML = `
 
   #timerContainer {
   position: relative;
-  margin: 100px auto;
+  margin: 50px 10px;
   max-width: 400px;
   text-align: center;
   padding: 20px;
@@ -85,6 +85,12 @@ input[type="number"] {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+@media screen and (min-width: 550px) {
+  #timerContainer {
+  margin: 100px auto;
+  }
 }
 
 </style>
@@ -300,7 +306,7 @@ customElements.define('movement-minder-timer',
         this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
         // Test the timer when it reaches zero.
-       // this.#setCurrentTimeInSeconds(0)
+        // this.#setCurrentTimeInSeconds(0)
 
         // Check if the timer has reached 0.
         if (this.#getCurrentTimeInSeconds() <= 0) {
