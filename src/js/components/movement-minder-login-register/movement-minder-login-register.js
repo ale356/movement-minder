@@ -147,7 +147,11 @@ button {
 }
 
 #loginForm svg {
-  transform: scale(1.5);
+  transform: scale(1.2);
+}
+
+#registerForm svg {
+  transform: scale(1.2);
 }
 
 #loginRegisterButton svg {
@@ -158,35 +162,44 @@ button {
 
   @media screen and (min-width: 550px) {
     #closeButton {
-      font-size: 90px;
+      font-size: 55px;
       margin: 30px;
     }
 
     #loginRegisterContent {
-    font-size: 44px; 
-    padding: 40px;
+    font-size: 24px; 
+    margin: 11% auto 0px auto;
     }
 
     .loginRegisterButton {
-    margin-bottom: 80px;
+      margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 input {
-  font-size: 48px;
-  width: 250px;
+  font-size: 28px;
+  width: 200px;
 }
 
 button {
-  font-size: 78px;
+  font-size: 38px;
+}
+
+span {
+  font-size: 18px;
 }
 
 #loginForm svg {
-  transform: scale(2);
+  transform: scale(1.4);
+}
+
+#registerForm svg {
+  transform: scale(1.4);
 }
 
 #loginRegisterButton svg {
-  padding: 10px 20px;
-  transform: scale(2);
+  padding: 5px 10px;
+  transform: scale(1.5);
 }
   }
 

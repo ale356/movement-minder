@@ -25,7 +25,7 @@ template.innerHTML = `
 
 @media screen and (min-width: 550px) {
   #footerContainer {
-    margin-top: 340px;
+    margin-top: 20px;
   }
 }
 </style>

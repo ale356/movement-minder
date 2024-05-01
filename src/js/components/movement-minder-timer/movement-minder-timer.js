@@ -89,7 +89,7 @@ input[type="number"] {
 
 @media screen and (min-width: 550px) {
   #timerContainer {
-  margin: 100px auto;
+  margin: 40px auto 20px auto;
   }
 }
 

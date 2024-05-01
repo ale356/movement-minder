@@ -55,11 +55,11 @@ template.innerHTML = `
 
 @media screen and (min-width: 550px) {
   #logo {
-    transform: scale(1.8);
+    transform: scale(1.5);
   }
 
   h1 {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   #logoContainer h1 {

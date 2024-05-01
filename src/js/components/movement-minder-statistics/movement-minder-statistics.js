@@ -113,18 +113,18 @@ margin-bottom: 200px;
 
 @media screen and (min-width: 550px) {
 #closeButton {
-  font-size: 90px;
+  font-size: 55px;
   margin: 30px;
 }
 
 #statisticsContent {
-font-size: 44px; 
+font-size: 20px; 
 padding: 40px;
 }
 
 #statisticsButton svg {
-  padding: 10px 20px;
-  transform: scale(2);
+  padding: 5px 10px;
+  transform: scale(1.5);
 }
 }
 
