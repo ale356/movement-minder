@@ -11,7 +11,6 @@ template.innerHTML = `
   align-items: center; /* Vertically center children */
   position: relative;
   margin: auto;
-  max-width: 400px;
   text-align: center;
   padding: 20px;
   font-family: 'Montserrat', sans-serif; /* Specify Montserrat font family */
@@ -40,6 +39,32 @@ template.innerHTML = `
   nav {
   display: flex; /* Use Flexbox */
   align-items: center; /* Align children vertically */
+}
+
+  /* Media queries for responsiveness */
+  @media screen and (min-width: 405px) and (max-width: 550px) {
+
+#logo {
+    transform: scale(1.4);
+  }
+
+  h1 {
+    font-size: 17px;
+  }
+}
+
+@media screen and (min-width: 550px) {
+  #logo {
+    transform: scale(1.8);
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  #logoContainer h1 {
+    margin-left: 10px;
+  }
 }
 </style>
 <div id="headerContainer">
