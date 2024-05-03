@@ -6,10 +6,11 @@
   "browser": "src/js/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run copy-sw && vite build",
     "serve": "vite preview",
     "lint": "npx eslint ./src || exit 0",
-    "lint:fix": "npx eslint ./src --fix || exit 0"
+    "lint:fix": "npx eslint ./src --fix || exit 0",
+    "copy-sw": "cp src/serviceworker.js dist/"
   },
   "contributors": [
     "Alejandro Lindström Mamani <al225vh@student.lnu.se>"
