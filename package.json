@@ -6,7 +6,7 @@
   "browser": "src/js/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && cp src/serviceworker.js dist/",
+    "build": "vite build",
     "serve": "vite preview",
     "lint": "npx eslint ./src || exit 0",
     "lint:fix": "npx eslint ./src --fix || exit 0"
