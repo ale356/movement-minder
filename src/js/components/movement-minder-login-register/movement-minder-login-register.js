@@ -469,11 +469,9 @@ customElements.define('movement-minder-login-register',
         jsonData[key] = value;
       });
 
-      console.log(await jsonData)
-
       // Make a POST request to the server API.
       try {
-        const response = await fetch('your_api_endpoint_here', {
+        const response = await fetch('http://localhost:8080/api/v1/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -484,6 +482,7 @@ customElements.define('movement-minder-login-register',
         if (response.ok) {
           // Handle successful login.
           console.log('Register successful');
+          console.log(response)
           // Redirect or perform other actions.
           this.#registerErrorMessageContainer.setAttribute('hidden', '')
           this.#registerContentContainer.setAttribute('hidden', '')
