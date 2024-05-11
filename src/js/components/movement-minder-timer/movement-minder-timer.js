@@ -433,7 +433,7 @@ customElements.define('movement-minder-timer',
         this.#handleStartMainEvent()
         // Update the sedentary property on the timeTracker object on the back-end.
         if (userIsLoggedIn) {
-          this.#updateSedentaryTime()
+          this.#updateTimeTrackerTime()
         }
       } else {
         // Setup timer for break (break time).
@@ -483,9 +483,9 @@ customElements.define('movement-minder-timer',
     }
 
     /**
-     * Updates the sedentary time on the back-end.
+     * Updates the time on the timeTracker object in the back-end.
      */
-    async #updateSedentaryTime() {
+    async #updateTimeTrackerTime(propertyToUpdate) {
       try {
         // Get the payload data.
         const jwtToken = this.#getJwtTokenFromLocalStorage()
@@ -495,10 +495,22 @@ customElements.define('movement-minder-timer',
         // Construct the URL for the GET request.
         const url = `http://localhost:8080/api/v1/timeTrackers/${payLoadData.timeTrackerId}`;
 
+        // Decide what time data to update.
+        let newTimeData
+        let oldTimeData
+        const timeTrackerObject = await this.#fetchUserActivityData(jwtToken)
+
+        if (propertyToUpdate === 'totalSedentaryTime') {
+          newTimeData = this.#mainTimerTimeInSeconds / 60
+          oldTimeData = timeTrackerObject.totalSedentaryTime
+        } else {
+          newTimeData = this.#breakTimerTimeInSeconds / 60
+          oldTimeData = timeTrackerObject.totalBreakTime
+        }
         // The JSON data to update the timerTracker object with.
         const jsonData = {
-          totalSedentaryTime: payLoadData.totalSedentaryTime
-        };
+          propertyToUpdate: newTimeData + 
+        }
 
         // Make the PUT request with the JWT token in the Authorization header.
         const response = await fetch(url, {
@@ -522,7 +534,42 @@ customElements.define('movement-minder-timer',
         // Handle fetch errors
         console.error('Error updating timeTracker data:', error);
       }
+    }
 
+    /**
+     * Make a GET fetch request to get the users activity data from the server.
+     */
+    async #fetchUserActivityData(jwtToken) {
+      try {
+        // Get the payload data.
+        const payLoadData = jwtDecode(jwtToken);
+        console.log(payLoadData);
+
+        // Construct the URL for the GET request.
+        const url = `http://localhost:8080/api/v1/timeTrackers/${payLoadData.timeTrackerId}`;
+
+        // Make the GET request with the JWT token in the Authorization header.
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${jwtToken}`
+          }
+        });
+
+        if (response.ok) {
+          // Handle successful response
+          const data = await response.json();
+          console.log('TimeTracker data:', data);
+          // You can perform further actions with the retrieved data here
+          return data
+        } else {
+          // Handle error response
+          throw new Error('Failed to fetch timeTracker data');
+        }
+      } catch (error) {
+        // Handle fetch errors
+        console.error('Error fetching timeTracker data:', error);
+      }
     }
 
     /**
