@@ -244,17 +244,20 @@ customElements.define('movement-minder-statistics',
     /**
      * Make a GET fetch request to get the users activity data from the server.
      */
-    #fetchUserActivityData() {
-      // Fetch the timeTracker object from the server.
+    async #fetchUserActivityData(jwtToken) {
       try {
+        // Get the payload data.
+        const payLoadData = jwtDecode(jwtToken);
+        console.log(payLoadData);
+        
         // Construct the URL for the GET request.
-        const url = `http://localhost:8080/api/v1/timeTrackers/${payLoadData}`;
+        const url = `http://localhost:8080/api/v1/timeTrackers/${payLoadData.timeTrackerId}`;
 
         // Make the GET request with the JWT token in the Authorization header.
         const response = await fetch(url, {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${jwtToken}`
+            Authorization: `Bearer ${jwtToken}`
           }
         });
 
@@ -271,30 +274,34 @@ customElements.define('movement-minder-statistics',
         // Handle fetch errors
         console.error('Error fetching timeTracker data:', error);
       }
-
     }
-
 
     /**
      * Show user data in statistics popup window.
      */
     #showUserData() {
-      // Fetch the user data from the server.
 
-      // Show the data for the user.
+      // Check if the user is logged in.
+      const jwtToken = this.#getJwtTokenFromLocalStorage()
+      if (jwtToken) {
+        // Fetch the user data from the server.
+        const userData = this.#fetchUserActivityData(jwtToken)
+        // Show the data for the user.
+
+        // Hide the not logged in container.
+
+        // Show the logged in container.
+      }
+
     }
 
     /**
-     * Gets the payload from the JWT token.
+     * Gets the JWT token from the local storage.
      */
-    #getJwtPayLoad() {
-        // Retrieve the JWT token from local storage.
-        const jwtToken = localStorage.getItem('accessToken');
-
-        // Get the payload data.
-        const payLoadData = jwtDecode(jwtToken);
-        console.log(payLoadData);
-        return payLoadData
+    #getJwtTokenFromLocalStorage() {
+      // Retrieve the JWT token from local storage.
+      const jwtToken = localStorage.getItem('accessToken');
+      return jwtToken
     }
 
     /**
@@ -304,6 +311,7 @@ customElements.define('movement-minder-statistics',
       if (this.#statisticsContainer.hasAttribute('hidden')) {
         this.#statisticsContainer.removeAttribute('hidden');
         // Show user data from the server.
+        this.#showUserData()
 
       } else {
         this.#statisticsContainer.setAttribute('hidden', '');
