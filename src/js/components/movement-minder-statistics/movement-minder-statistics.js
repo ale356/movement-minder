@@ -1,3 +1,5 @@
+import { jwtDecode } from "jwt-decode";
+
 // Define template.
 const template = document.createElement('template');
 template.innerHTML = `
@@ -138,8 +140,8 @@ padding: 40px;
       <p>Please Log In To See Data.</p>
     </div>
     <div id="loggedIn">
-      <p>Total Sedentary Time: <span id="sedentaryTime">150</></p>
-      <p>Total Break Time: <span id="breakTime">30</></p>
+      <p>Total Sedentary Time: <span id="sedentaryTime"></></p>
+      <p>Total Break Time: <span id="breakTime"></></p>
     </div>
   </div>
 </div>
@@ -243,7 +245,33 @@ customElements.define('movement-minder-statistics',
      * Make a GET fetch request to get the users activity data from the server.
      */
     #fetchUserActivityData() {
-      // Fetch the user data from the server.
+      // Fetch the timeTracker object from the server.
+      try {
+        // Construct the URL for the GET request.
+        const url = `http://localhost:8080/api/v1/timeTrackers/${payLoadData}`;
+
+        // Make the GET request with the JWT token in the Authorization header.
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${jwtToken}`
+          }
+        });
+
+        if (response.ok) {
+          // Handle successful response
+          const data = await response.json();
+          console.log('TimeTracker data:', data);
+          // You can perform further actions with the retrieved data here
+        } else {
+          // Handle error response
+          throw new Error('Failed to fetch timeTracker data');
+        }
+      } catch (error) {
+        // Handle fetch errors
+        console.error('Error fetching timeTracker data:', error);
+      }
+
     }
 
 
@@ -254,6 +282,19 @@ customElements.define('movement-minder-statistics',
       // Fetch the user data from the server.
 
       // Show the data for the user.
+    }
+
+    /**
+     * Gets the payload from the JWT token.
+     */
+    #getJwtPayLoad() {
+        // Retrieve the JWT token from local storage.
+        const jwtToken = localStorage.getItem('accessToken');
+
+        // Get the payload data.
+        const payLoadData = jwtDecode(jwtToken);
+        console.log(payLoadData);
+        return payLoadData
     }
 
     /**

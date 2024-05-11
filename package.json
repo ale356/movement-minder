@@ -19,5 +19,8 @@
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.10",
     "vite": "^5.2.8"
+  },
+  "dependencies": {
+    "jwt-decode": "^4.0.0"
   }
 }
