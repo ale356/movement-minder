@@ -426,13 +426,15 @@ customElements.define('movement-minder-timer',
     #handleTimerEnd() {
 
       // Check if the user is logged in.
-
+      const userIsLoggedIn = this.#isLoggedIn()
       // Decide if its break time or main time.
       if (this.#breakIsActive === true) {
         // Setup timer for main (main time).
         this.#handleStartMainEvent()
         // Update the sedentary property on the timeTracker object on the back-end.
-        this.#updateSedentaryTime()
+        if (userIsLoggedIn) {
+          this.#updateSedentaryTime()
+        }
       } else {
         // Setup timer for break (break time).
         this.#handleStartBreakEvent()
@@ -483,7 +485,7 @@ customElements.define('movement-minder-timer',
     /**
      * Updates the sedentary time on the back-end.
      */
-    async #updateSedentaryTime(jwtToken) {
+    async #updateSedentaryTime() {
       try {
         // Get the payload data.
         const jwtToken = this.#getJwtTokenFromLocalStorage()

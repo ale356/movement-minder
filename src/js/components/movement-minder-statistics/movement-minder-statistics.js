@@ -278,14 +278,26 @@ customElements.define('movement-minder-statistics',
     }
 
     /**
+     * Checks if a user is logged in.
+     */
+    #isLoggedIn() {
+      if (this.#getJwtTokenFromLocalStorage !== undefined) {
+        return true
+      } else {
+        return false
+      }
+    }
+
+    /**
      * Show user data in statistics popup window.
      */
     async #showUserData() {
 
       // Check if the user is logged in.
-      const jwtToken = this.#getJwtTokenFromLocalStorage()
-      if (jwtToken) {
+      const userIsLoggedIn = this.#isLoggedIn()
+      if (userIsLoggedIn) {
         // Fetch the user data from the server.
+        const jwtToken = this.#getJwtTokenFromLocalStorage()
         const userData = await this.#fetchUserActivityData(jwtToken)
         // Show the data for the user.
         this.#sedentaryTimeSpan.textContent = userData.totalSedentaryTime
@@ -295,6 +307,11 @@ customElements.define('movement-minder-statistics',
         this.#notLoggedInContainer.setAttribute('hidden', '')
         // Show the logged in container.
         this.#loggedInContainer.removeAttribute('hidden', '')
+      } else {
+        // Hide the logged in container.
+        this.#loggedInContainer.setAttribute('hidden', '')
+        // Show the not logged in container.
+        this.#notLoggedInContainer.removeAttribute('hidden', '')
       }
 
     }
