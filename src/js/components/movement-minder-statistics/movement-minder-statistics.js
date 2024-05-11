@@ -249,7 +249,7 @@ customElements.define('movement-minder-statistics',
         // Get the payload data.
         const payLoadData = jwtDecode(jwtToken);
         console.log(payLoadData);
-        
+
         // Construct the URL for the GET request.
         const url = `http://localhost:8080/api/v1/timeTrackers/${payLoadData.timeTrackerId}`;
 
@@ -266,6 +266,7 @@ customElements.define('movement-minder-statistics',
           const data = await response.json();
           console.log('TimeTracker data:', data);
           // You can perform further actions with the retrieved data here
+          return data
         } else {
           // Handle error response
           throw new Error('Failed to fetch timeTracker data');
@@ -279,18 +280,21 @@ customElements.define('movement-minder-statistics',
     /**
      * Show user data in statistics popup window.
      */
-    #showUserData() {
+    async #showUserData() {
 
       // Check if the user is logged in.
       const jwtToken = this.#getJwtTokenFromLocalStorage()
       if (jwtToken) {
         // Fetch the user data from the server.
-        const userData = this.#fetchUserActivityData(jwtToken)
+        const userData = await this.#fetchUserActivityData(jwtToken)
         // Show the data for the user.
+        this.#sedentaryTimeSpan.textContent = userData.totalSedentaryTime
+        this.#breakTimeSpan.textContent = userData.totalBreakTime
 
         // Hide the not logged in container.
-
+        this.#notLoggedInContainer.setAttribute('hidden', '')
         // Show the logged in container.
+        this.#loggedInContainer.removeAttribute('hidden', '')
       }
 
     }
