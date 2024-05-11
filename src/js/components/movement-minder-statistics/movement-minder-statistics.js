@@ -134,8 +134,13 @@ padding: 40px;
 <button id="closeButton">&times;</button>
   <div id="statisticsContent">
     <h2>Statistics</h2>
-    <p>Total Sedentary Time: <span id="sedentaryTime">150</></p>
-    <p>Total Break Time: <span id="breakTime">30</></p>
+    <div id="notLoggedIn">
+      <p>Please Log In To See Data.</p>
+    </div>
+    <div id="loggedIn">
+      <p>Total Sedentary Time: <span id="sedentaryTime">150</></p>
+      <p>Total Break Time: <span id="breakTime">30</></p>
+    </div>
   </div>
 </div>
 `;
@@ -181,6 +186,20 @@ customElements.define('movement-minder-statistics',
     #closeButton;
 
     /**
+     * Reference to the not logged in container.
+     *
+     * @type {HTMLDivElement}
+     */
+    #notLoggedInContainer;
+
+    /**
+     * Reference to the logged in container.
+     *
+     * @type {HTMLDivElement}
+     */
+    #loggedInContainer;
+
+    /**
      * Creates an instance of the current type.
      */
     constructor() {
@@ -197,6 +216,8 @@ customElements.define('movement-minder-statistics',
       this.#sedentaryTimeSpan = this.shadowRoot.querySelector('#sedentaryTime')
       this.#breakTimeSpan = this.shadowRoot.querySelector('#breakTime')
       this.#closeButton = this.shadowRoot.querySelector('#closeButton')
+      this.#notLoggedInContainer = this.shadowRoot.querySelector('#notLoggedIn')
+      this.#loggedInContainer = this.shadowRoot.querySelector('#loggedIn')
 
       // Add event listeners.
       this.#statisticsButton.addEventListener('click', () => this.#toggleStatistics());
@@ -209,7 +230,7 @@ customElements.define('movement-minder-statistics',
     async connectedCallback() {
       // Hide elements from the user.
       this.#statisticsContainer.setAttribute('hidden', '')
-
+      this.#loggedInContainer.setAttribute('hidden', '')
     }
 
     /**
