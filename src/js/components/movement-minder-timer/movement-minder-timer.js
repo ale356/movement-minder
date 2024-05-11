@@ -175,14 +175,14 @@ customElements.define('movement-minder-timer',
     #currentTimeInSeconds;
 
     /**
-     * Reference to the start time value in minutes for the main timer.
+     * Reference to the start time value in seconds for the main timer.
      *
      * @type {Number}
      */
     #mainTimerTimeInSeconds;
 
     /**
-     * Reference to the start time value in minutes for the break timer.
+     * Reference to the start time value in seconds for the break timer.
      *
      * @type {Number}
      */
@@ -308,7 +308,7 @@ customElements.define('movement-minder-timer',
         this.#updateDisplay(this.#getCurrentTimeInSeconds());
 
         // Test the timer when it reaches zero.
-        // this.#setCurrentTimeInSeconds(0)
+         this.#setCurrentTimeInSeconds(0)
 
         // Check if the timer has reached 0.
         if (this.#getCurrentTimeInSeconds() <= 0) {
@@ -431,15 +431,17 @@ customElements.define('movement-minder-timer',
       if (this.#breakIsActive === true) {
         // Setup timer for main (main time).
         this.#handleStartMainEvent()
-        // Update the sedentary property on the timeTracker object on the back-end.
+        // Update the break time property on the timeTracker object on the back-end.
         if (userIsLoggedIn) {
-          this.#updateTimeTrackerTime()
+          this.#updateTimeTrackerTime('totalBreakTime')
         }
       } else {
         // Setup timer for break (break time).
         this.#handleStartBreakEvent()
-        // Update the break property on the timeTracker object on the back-end.
-
+        // Update the sedentary property on the timeTracker object on the back-end.
+        if (userIsLoggedIn) {
+          this.#updateTimeTrackerTime('totalSedentaryTime')
+        }
       }
 
       // Create the audio context and oscillator.
@@ -499,6 +501,7 @@ customElements.define('movement-minder-timer',
         let newTimeData
         let oldTimeData
         const timeTrackerObject = await this.#fetchUserActivityData(jwtToken)
+        console.log(timeTrackerObject)
 
         if (propertyToUpdate === 'totalSedentaryTime') {
           newTimeData = this.#mainTimerTimeInSeconds / 60
@@ -507,25 +510,28 @@ customElements.define('movement-minder-timer',
           newTimeData = this.#breakTimerTimeInSeconds / 60
           oldTimeData = timeTrackerObject.totalBreakTime
         }
+        console.log(propertyToUpdate)
         // The JSON data to update the timerTracker object with.
         const jsonData = {
-          propertyToUpdate: newTimeData + 
+          [propertyToUpdate]: oldTimeData + newTimeData
         }
+        console.log(JSON.stringify(jsonData))
 
         // Make the PUT request with the JWT token in the Authorization header.
         const response = await fetch(url, {
           method: 'PUT',
           headers: {
-            'Authorization': `Bearer ${jwtToken}`,
+            Authorization: `Bearer ${jwtToken}`,
             'Content-Type': 'application/json' // Specify the content type as JSON.
           },
           body: JSON.stringify(jsonData) // Convert your JSON data to a string.
         });
 
         if (response.ok) {
-          // Handle successful response
-          const data = await response.json();
-          console.log('Response:', data);
+          // Handle successful response.
+         // const data = await response.json();
+         // console.log('TimeTracker data:', data);
+         console.log(response);
         } else {
           // Handle error response
           throw new Error('Failed to update the timeTracker data');
