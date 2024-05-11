@@ -219,9 +219,9 @@ customElements.define('movement-minder-statistics',
     }
 
     /**
-     * Make a GET fetch request to get the users MovementMinder data from the server.
+     * Make a GET fetch request to get the users activity data from the server.
      */
-    #fetchUserData() {
+    #fetchUserActivityData() {
       // Fetch the user data from the server.
     }
 

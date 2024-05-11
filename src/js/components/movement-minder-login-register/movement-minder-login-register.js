@@ -436,6 +436,14 @@ customElements.define('movement-minder-login-register',
           // Handle successful login.
           console.log('Login successful');
           console.log(response)
+
+          // Get the JWT token from the response.
+          // eslint-disable-next-line camelcase
+          const { access_token } = await response.json();
+
+          // Save the JWT token in the browser's local storage.
+          localStorage.setItem('accessToken', access_token);
+
           // Redirect or perform other actions.
           this.#loginErrorMessageContainer.setAttribute('hidden', '')
           this.#loginRegisterContainer.setAttribute('hidden', '')
