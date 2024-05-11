@@ -1,3 +1,5 @@
+import { jwtDecode } from "jwt-decode";
+
 // Define template.
 const template = document.createElement('template');
 template.innerHTML = `
@@ -423,13 +425,19 @@ customElements.define('movement-minder-timer',
      */
     #handleTimerEnd() {
 
+      // Check if the user is logged in.
+
       // Decide if its break time or main time.
-      if (this.#breakIsActive == true) {
-        // Setup timer for main.
+      if (this.#breakIsActive === true) {
+        // Setup timer for main (main time).
         this.#handleStartMainEvent()
+        // Update the sedentary property on the timeTracker object on the back-end.
+        this.#updateSedentaryTime()
       } else {
-        // Setup timer for break.
+        // Setup timer for break (break time).
         this.#handleStartBreakEvent()
+        // Update the break property on the timeTracker object on the back-end.
+
       }
 
       // Create the audio context and oscillator.
@@ -449,6 +457,69 @@ customElements.define('movement-minder-timer',
       // Hide elements from the user.
       this.#messageContainer.setAttribute('hidden', '')
       this.#configurationContainer.setAttribute('hidden', '')
+
+    }
+
+    /**
+     * Gets the JWT token from the local storage.
+     */
+    #getJwtTokenFromLocalStorage() {
+      // Retrieve the JWT token from local storage.
+      const jwtToken = localStorage.getItem('accessToken');
+      return jwtToken
+    }
+
+    /**
+     * Checks if a user is logged in.
+     */
+    #isLoggedIn() {
+      if (this.#getJwtTokenFromLocalStorage !== undefined) {
+        return true
+      } else {
+        return false
+      }
+    }
+
+    /**
+     * Updates the sedentary time on the back-end.
+     */
+    async #updateSedentaryTime(jwtToken) {
+      try {
+        // Get the payload data.
+        const jwtToken = this.#getJwtTokenFromLocalStorage()
+        const payLoadData = jwtDecode(jwtToken);
+        console.log(payLoadData);
+
+        // Construct the URL for the GET request.
+        const url = `http://localhost:8080/api/v1/timeTrackers/${payLoadData.timeTrackerId}`;
+
+        // The JSON data to update the timerTracker object with.
+        const jsonData = {
+          totalSedentaryTime: payLoadData.totalSedentaryTime
+        };
+
+        // Make the PUT request with the JWT token in the Authorization header.
+        const response = await fetch(url, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${jwtToken}`,
+            'Content-Type': 'application/json' // Specify the content type as JSON.
+          },
+          body: JSON.stringify(jsonData) // Convert your JSON data to a string.
+        });
+
+        if (response.ok) {
+          // Handle successful response
+          const data = await response.json();
+          console.log('Response:', data);
+        } else {
+          // Handle error response
+          throw new Error('Failed to update the timeTracker data');
+        }
+      } catch (error) {
+        // Handle fetch errors
+        console.error('Error updating timeTracker data:', error);
+      }
 
     }
 
