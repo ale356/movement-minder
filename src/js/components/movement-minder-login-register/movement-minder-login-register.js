@@ -424,7 +424,7 @@ customElements.define('movement-minder-login-register',
 
       // Make a POST request to the server API.
       try {
-        const response = await fetch('http://localhost:8080/api/v1/login', {
+        const response = await fetch('https://movement-minder-restful-api.onrender.com/api/v1/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -480,7 +480,7 @@ customElements.define('movement-minder-login-register',
 
       // Make a POST request to the server API.
       try {
-        const response = await fetch('http://localhost:8080/api/v1/register', {
+        const response = await fetch('https://movement-minder-restful-api.onrender.com/api/v1/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

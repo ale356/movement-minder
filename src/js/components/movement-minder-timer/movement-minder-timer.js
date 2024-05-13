@@ -495,7 +495,7 @@ customElements.define('movement-minder-timer',
         console.log(payLoadData);
 
         // Construct the URL for the GET request.
-        const url = `http://localhost:8080/api/v1/timeTrackers/${payLoadData.timeTrackerId}`;
+        const url = `https://movement-minder-restful-api.onrender.com/api/v1/timeTrackers/${payLoadData.timeTrackerId}`;
 
         // Decide what time data to update.
         let newTimeData
@@ -552,7 +552,7 @@ customElements.define('movement-minder-timer',
         console.log(payLoadData);
 
         // Construct the URL for the GET request.
-        const url = `http://localhost:8080/api/v1/timeTrackers/${payLoadData.timeTrackerId}`;
+        const url = `https://movement-minder-restful-api.onrender.com/api/v1/timeTrackers/${payLoadData.timeTrackerId}`;
 
         // Make the GET request with the JWT token in the Authorization header.
         const response = await fetch(url, {
