@@ -23,8 +23,10 @@ self.addEventListener('fetch', event => {
   // TODO: Cache new resources when online and serve cached content if offline.
 
   /**
+   * Caches the fetched results.
    *
-   * @param request
+   * @param {object} request - A request object.
+   * @returns {object} A response object.
    */
   const cachedFetch = async request => {
     try {

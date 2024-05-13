@@ -13,9 +13,8 @@ import './components/movement-minder-login-register/movement-minder-login-regist
 
 // Check if the browser supports the Notification API.
 if ('Notification' in window) {
-  // Request permission for notifications
   /**
-   *
+   * Request permission for notifications.
    */
   async function requestNotificationPermission () {
     const permission = await Notification.requestPermission()

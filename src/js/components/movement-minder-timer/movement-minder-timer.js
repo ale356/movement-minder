@@ -650,7 +650,7 @@ customElements.define('movement-minder-timer',
     /**
      * Handles the confirm logic.
      *
-     * @param event
+     * @param {object} event - An event object.
      */
     #handleConfirm (event) {
       // Prevent the default form submission behavior.

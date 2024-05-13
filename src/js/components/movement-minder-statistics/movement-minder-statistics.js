@@ -204,7 +204,7 @@ customElements.define('movement-minder-statistics',
     /**
      * Creates an instance of the current type.
      */
-    constructor() {
+    constructor () {
       super()
 
       // Attach a shadow DOM tree to this element and
@@ -229,7 +229,7 @@ customElements.define('movement-minder-statistics',
     /**
      * Called after the element is inserted into the DOM.
      */
-    async connectedCallback() {
+    async connectedCallback () {
       // Hide elements from the user.
       this.#statisticsContainer.setAttribute('hidden', '')
       this.#loggedInContainer.setAttribute('hidden', '')
@@ -238,7 +238,7 @@ customElements.define('movement-minder-statistics',
     /**
      * Called after the element has been removed from the DOM.
      */
-    disconnectedCallback() {
+    disconnectedCallback () {
     }
 
     /**
@@ -247,7 +247,7 @@ customElements.define('movement-minder-statistics',
      * @param {object} jwtToken - A JWT access token.
      * @returns {object} a timeTracker object.
      */
-    async #fetchUserActivityData(jwtToken) {
+    async #fetchUserActivityData (jwtToken) {
       try {
         // Get the payload data.
         const payLoadData = jwtDecode(jwtToken)
@@ -285,7 +285,7 @@ customElements.define('movement-minder-statistics',
      *
      * @returns {boolean} depending if the user is logged in or not.
      */
-    #isLoggedIn() {
+    #isLoggedIn () {
       if (this.#getJwtTokenFromLocalStorage !== undefined) {
         return true
       } else {
@@ -296,7 +296,7 @@ customElements.define('movement-minder-statistics',
     /**
      * Show user data in statistics popup window.
      */
-    async #showUserData() {
+    async #showUserData () {
       // Check if the user is logged in.
       const userIsLoggedIn = this.#isLoggedIn()
       if (userIsLoggedIn) {
@@ -324,7 +324,7 @@ customElements.define('movement-minder-statistics',
      *
      * @returns {object} a JWT token.
      */
-    #getJwtTokenFromLocalStorage() {
+    #getJwtTokenFromLocalStorage () {
       // Retrieve the JWT token from local storage.
       const jwtToken = localStorage.getItem('accessToken')
       return jwtToken
@@ -333,7 +333,7 @@ customElements.define('movement-minder-statistics',
     /**
      * Shows the statistics popup window.
      */
-    #toggleStatistics() {
+    #toggleStatistics () {
       if (this.#statisticsContainer.hasAttribute('hidden')) {
         this.#statisticsContainer.removeAttribute('hidden')
         // Show user data from the server.
