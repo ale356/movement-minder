@@ -7,7 +7,7 @@ self.addEventListener('install', event => {
     caches.open(version)
       .then(cache => {
         return cache.addAll([
-          'src/notification/doorbell-notification.mp3'
+          // List other resources to cache here.
         ])
       })
   )

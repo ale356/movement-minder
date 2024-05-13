@@ -267,20 +267,6 @@ customElements.define('movement-minder-login-register',
     #loginRegisterContainer
 
     /**
-     * Reference to the sedentary time span element.
-     *
-     * @type {HTMLSpanElement}
-     */
-    #sedentaryTimeSpan
-
-    /**
-     * Reference to the break time span element.
-     *
-     * @type {HTMLSpanElement}
-     */
-    #breakTimeSpan
-
-    /**
      * Reference to the close button.
      *
      * @type {HTMLButtonElement}
@@ -350,8 +336,6 @@ customElements.define('movement-minder-login-register',
       // Get references to elements to change.
       this.#loginRegisterButton = this.shadowRoot.querySelector('#loginRegisterButton')
       this.#loginRegisterContainer = this.shadowRoot.querySelector('#loginRegisterContainer')
-      this.#sedentaryTimeSpan = this.shadowRoot.querySelector('#sedentaryTime')
-      this.#breakTimeSpan = this.shadowRoot.querySelector('#breakTime')
       this.#closeButton = this.shadowRoot.querySelector('#closeButton')
       this.#loginForm = this.shadowRoot.querySelector('#loginForm')
       this.#registerForm = this.shadowRoot.querySelector('#registerForm')

@@ -42,13 +42,6 @@ customElements.define('movement-minder-footer',
    */
   class extends HTMLElement {
     /**
-     * Reference to the footer container.
-     *
-     * @type {HTMLDivElement}
-     */
-    #footerContainer
-
-    /**
      * Creates an instance of the current type.
      */
     constructor () {
@@ -58,12 +51,6 @@ customElements.define('movement-minder-footer',
       // append the template to the shadow root.
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
-
-      // Get references to elements to change.
-      this.#footerContainer = this.shadowRoot.querySelector('#footerContainer')
-
-      // Add event listeners.
-      // this.#startPauseButton.addEventListener('click', () => this.#toggleTimer());
     }
 
     /**
