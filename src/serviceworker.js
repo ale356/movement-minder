@@ -8,7 +8,7 @@ self.addEventListener('install', event => {
       .then(cache => {
         return cache.addAll([
           'src/notification/doorbell-notification.mp3'
-        ]);
+        ])
       })
   )
 })
@@ -22,6 +22,10 @@ self.addEventListener('fetch', event => {
   console.log('ServiceWorker: Fetching ', version)
   // TODO: Cache new resources when online and serve cached content if offline.
 
+  /**
+   *
+   * @param request
+   */
   const cachedFetch = async request => {
     try {
       // Check if the request is from your domain
@@ -36,7 +40,7 @@ self.addEventListener('fetch', event => {
         return response
       } else {
         // If the request is not from your domain, don't cache it.
-        return fetch(request);
+        return fetch(request)
       }
     } catch (error) {
       console.info('ServiceWorker: Serving cached result.')
@@ -54,11 +58,11 @@ self.addEventListener('push', event => {
 
 // Listen for messages from the main JavaScript file.
 self.addEventListener('message', event => {
-  console.log('Message received in service worker:', event.data);
+  console.log('Message received in service worker:', event.data)
   // Check if the message is about starting a break
   if (event.data && event.data.type === 'startBreak') {
     // Extract the message from the event data.
-    const { message } = event.data;
+    const { message } = event.data
 
     // Attempt to show a notification to the user.
     self.registration.showNotification('MovementMinder', {
@@ -68,5 +72,4 @@ self.addEventListener('message', event => {
       vibrate: [200, 100, 200]
     })
   }
-});
-
+})

@@ -1,7 +1,7 @@
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode'
 
 // Define template.
-const template = document.createElement('template');
+const template = document.createElement('template')
 template.innerHTML = `
 <style>
 /* Import Montserrat font */
@@ -145,7 +145,7 @@ padding: 40px;
     </div>
   </div>
 </div>
-`;
+`
 
 customElements.define('movement-minder-statistics',
   /**
@@ -157,7 +157,7 @@ customElements.define('movement-minder-statistics',
      *
      * @type {HTMLButtonElement}
      */
-    #statisticsButton;
+    #statisticsButton
 
     /**
      * Reference to the statistics container.
@@ -185,32 +185,32 @@ customElements.define('movement-minder-statistics',
      *
      * @type {HTMLButtonElement}
      */
-    #closeButton;
+    #closeButton
 
     /**
      * Reference to the not logged in container.
      *
      * @type {HTMLDivElement}
      */
-    #notLoggedInContainer;
+    #notLoggedInContainer
 
     /**
      * Reference to the logged in container.
      *
      * @type {HTMLDivElement}
      */
-    #loggedInContainer;
+    #loggedInContainer
 
     /**
      * Creates an instance of the current type.
      */
     constructor() {
-      super();
+      super()
 
       // Attach a shadow DOM tree to this element and
       // append the template to the shadow root.
       this.attachShadow({ mode: 'open' })
-        .appendChild(template.content.cloneNode(true));
+        .appendChild(template.content.cloneNode(true))
 
       // Get references to elements to change.
       this.#statisticsButton = this.shadowRoot.querySelector('#statisticsButton')
@@ -222,8 +222,8 @@ customElements.define('movement-minder-statistics',
       this.#loggedInContainer = this.shadowRoot.querySelector('#loggedIn')
 
       // Add event listeners.
-      this.#statisticsButton.addEventListener('click', () => this.#toggleStatistics());
-      this.#closeButton.addEventListener('click', () => this.#toggleStatistics());
+      this.#statisticsButton.addEventListener('click', () => this.#toggleStatistics())
+      this.#closeButton.addEventListener('click', () => this.#toggleStatistics())
     }
 
     /**
@@ -243,15 +243,18 @@ customElements.define('movement-minder-statistics',
 
     /**
      * Make a GET fetch request to get the users activity data from the server.
+     *
+     * @param {object} jwtToken - A JWT access token.
+     * @returns {object} a timeTracker object.
      */
     async #fetchUserActivityData(jwtToken) {
       try {
         // Get the payload data.
-        const payLoadData = jwtDecode(jwtToken);
-        console.log(payLoadData);
+        const payLoadData = jwtDecode(jwtToken)
+        console.log(payLoadData)
 
         // Construct the URL for the GET request.
-        const url = `https://movement-minder-restful-api.onrender.com/api/v1/timeTrackers/${payLoadData.timeTrackerId}`;
+        const url = `https://movement-minder-restful-api.onrender.com/api/v1/timeTrackers/${payLoadData.timeTrackerId}`
 
         // Make the GET request with the JWT token in the Authorization header.
         const response = await fetch(url, {
@@ -259,26 +262,28 @@ customElements.define('movement-minder-statistics',
           headers: {
             Authorization: `Bearer ${jwtToken}`
           }
-        });
+        })
 
         if (response.ok) {
           // Handle successful response
-          const data = await response.json();
-          console.log('TimeTracker data:', data);
+          const data = await response.json()
+          console.log('TimeTracker data:', data)
           // You can perform further actions with the retrieved data here
           return data
         } else {
           // Handle error response
-          throw new Error('Failed to fetch timeTracker data');
+          throw new Error('Failed to fetch timeTracker data')
         }
       } catch (error) {
         // Handle fetch errors
-        console.error('Error fetching timeTracker data:', error);
+        console.error('Error fetching timeTracker data:', error)
       }
     }
 
     /**
      * Checks if a user is logged in.
+     *
+     * @returns {boolean} depending if the user is logged in or not.
      */
     #isLoggedIn() {
       if (this.#getJwtTokenFromLocalStorage !== undefined) {
@@ -292,7 +297,6 @@ customElements.define('movement-minder-statistics',
      * Show user data in statistics popup window.
      */
     async #showUserData() {
-
       // Check if the user is logged in.
       const userIsLoggedIn = this.#isLoggedIn()
       if (userIsLoggedIn) {
@@ -313,15 +317,16 @@ customElements.define('movement-minder-statistics',
         // Show the not logged in container.
         this.#notLoggedInContainer.removeAttribute('hidden', '')
       }
-
     }
 
     /**
      * Gets the JWT token from the local storage.
+     *
+     * @returns {object} a JWT token.
      */
     #getJwtTokenFromLocalStorage() {
       // Retrieve the JWT token from local storage.
-      const jwtToken = localStorage.getItem('accessToken');
+      const jwtToken = localStorage.getItem('accessToken')
       return jwtToken
     }
 
@@ -330,13 +335,12 @@ customElements.define('movement-minder-statistics',
      */
     #toggleStatistics() {
       if (this.#statisticsContainer.hasAttribute('hidden')) {
-        this.#statisticsContainer.removeAttribute('hidden');
+        this.#statisticsContainer.removeAttribute('hidden')
         // Show user data from the server.
         this.#showUserData()
-
       } else {
-        this.#statisticsContainer.setAttribute('hidden', '');
+        this.#statisticsContainer.setAttribute('hidden', '')
       }
     }
   }
-);
+)

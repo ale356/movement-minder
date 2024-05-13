@@ -1,5 +1,5 @@
 // Define template.
-const template = document.createElement('template');
+const template = document.createElement('template')
 template.innerHTML = `
 <style>
 /* Import Montserrat font */
@@ -91,21 +91,21 @@ customElements.define('movement-minder-header',
      *
      * @type {HTMLDivElement}
      */
-    #headerContainer;
+    #headerContainer
 
     /**
      * Creates an instance of the current type.
      */
-    constructor() {
-      super();
+    constructor () {
+      super()
 
       // Attach a shadow DOM tree to this element and
       // append the template to the shadow root.
       this.attachShadow({ mode: 'open' })
-        .appendChild(template.content.cloneNode(true));
+        .appendChild(template.content.cloneNode(true))
 
       // Get references to elements to change.
-      this.#headerContainer = this.shadowRoot.querySelector('#headerContainer');
+      this.#headerContainer = this.shadowRoot.querySelector('#headerContainer')
 
       // Add event listeners.
       // this.#startPauseButton.addEventListener('click', () => this.#toggleTimer());
@@ -116,8 +116,8 @@ customElements.define('movement-minder-header',
      *
      * @returns {string[]} A string array of attributes to monitor.
      */
-    static get observedAttributes() {
-      return ['start', 'pause'];
+    static get observedAttributes () {
+      return ['start', 'pause']
     }
 
     /**
@@ -127,7 +127,7 @@ customElements.define('movement-minder-header',
      * @param {any} oldValue the old attribute value.
      * @param {any} newValue the new attribute value.
      */
-    attributeChangedCallback(name, oldValue, newValue) {
+    attributeChangedCallback (name, oldValue, newValue) {
       if (name === 'start' && newValue !== null) {
         // Handle start action...
         console.log('Timer started!')
@@ -140,13 +140,13 @@ customElements.define('movement-minder-header',
     /**
      * Called after the element is inserted into the DOM.
      */
-    async connectedCallback() {
+    async connectedCallback () {
     }
 
     /**
      * Called after the element has been removed from the DOM.
      */
-    disconnectedCallback() {
+    disconnectedCallback () {
     }
   }
 )

@@ -1,5 +1,5 @@
 // Define template.
-const template = document.createElement('template');
+const template = document.createElement('template')
 template.innerHTML = `
 <style>
 /* Import Montserrat font */
@@ -245,7 +245,7 @@ span {
     </div>
   </div>
 </div>
-`;
+`
 
 customElements.define('movement-minder-login-register',
   /**
@@ -257,7 +257,7 @@ customElements.define('movement-minder-login-register',
      *
      * @type {HTMLButtonElement}
      */
-    #loginRegisterButton;
+    #loginRegisterButton
 
     /**
      * Reference to the loginRegister container.
@@ -285,67 +285,67 @@ customElements.define('movement-minder-login-register',
      *
      * @type {HTMLButtonElement}
      */
-    #closeButton;
+    #closeButton
 
     /**
      * Reference to the login form.
      *
      * @type {HTMLButtonElement}
      */
-    #loginForm;
+    #loginForm
 
     /**
      * Reference to the register form.
      *
      * @type {HTMLButtonElement}
      */
-    #registerForm;
+    #registerForm
 
     /**
      * Reference to the login error message container.
      *
      * @type {HTMLDivElement}
      */
-    #loginErrorMessageContainer;
+    #loginErrorMessageContainer
 
     /**
      * Reference to the register error message container.
      *
      * @type {HTMLDivElement}
      */
-    #registerErrorMessageContainer;
+    #registerErrorMessageContainer
 
     /**
      * Reference to the sign up link.
      *
      * @type {HTMLSpanElement}
      */
-    #signUpLink;
+    #signUpLink
 
     /**
      * Reference to the login content container.
      *
      * @type {HTMLDivElement}
      */
-    #loginContentContainer;
+    #loginContentContainer
 
     /**
      * Reference to the register content container.
      *
      * @type {HTMLDivElement}
      */
-    #registerContentContainer;
+    #registerContentContainer
 
     /**
      * Creates an instance of the current type.
      */
-    constructor() {
-      super();
+    constructor () {
+      super()
 
       // Attach a shadow DOM tree to this element and
       // append the template to the shadow root.
       this.attachShadow({ mode: 'open' })
-        .appendChild(template.content.cloneNode(true));
+        .appendChild(template.content.cloneNode(true))
 
       // Get references to elements to change.
       this.#loginRegisterButton = this.shadowRoot.querySelector('#loginRegisterButton')
@@ -362,17 +362,17 @@ customElements.define('movement-minder-login-register',
       this.#registerContentContainer = this.shadowRoot.querySelector('#registerContent')
 
       // Add event listeners.
-      this.#loginRegisterButton.addEventListener('click', () => this.#toggleLoginRegister());
-      this.#closeButton.addEventListener('click', () => this.#toggleLoginRegister());
-      this.#loginForm.addEventListener('submit', (event) => this.#handleSubmitLogin(event));
-      this.#registerForm.addEventListener('submit', (event) => this.#handleSubmitRegister(event));
-      this.#signUpLink.addEventListener('click', () => this.#showRegisterForm());
+      this.#loginRegisterButton.addEventListener('click', () => this.#toggleLoginRegister())
+      this.#closeButton.addEventListener('click', () => this.#toggleLoginRegister())
+      this.#loginForm.addEventListener('submit', (event) => this.#handleSubmitLogin(event))
+      this.#registerForm.addEventListener('submit', (event) => this.#handleSubmitRegister(event))
+      this.#signUpLink.addEventListener('click', () => this.#showRegisterForm())
     }
 
     /**
      * Called after the element is inserted into the DOM.
      */
-    async connectedCallback() {
+    async connectedCallback () {
       // Hide elements from the user.
       this.#loginRegisterContainer.setAttribute('hidden', '')
       this.#loginErrorMessageContainer.setAttribute('hidden', '')
@@ -383,44 +383,43 @@ customElements.define('movement-minder-login-register',
     /**
      * Called after the element has been removed from the DOM.
      */
-    disconnectedCallback() {
+    disconnectedCallback () {
     }
 
     /**
      * Shows the loginRegister popup window.
      */
-    #toggleLoginRegister() {
+    #toggleLoginRegister () {
       if (this.#loginRegisterContainer.hasAttribute('hidden')) {
         // This logic runs when you open the popup window.
-        this.#loginRegisterContainer.removeAttribute('hidden');
+        this.#loginRegisterContainer.removeAttribute('hidden')
         this.#loginContentContainer.removeAttribute('hidden')
         this.#loginErrorMessageContainer.setAttribute('hidden', '')
-
       } else {
         // This logic runs when you close the popup window.
-        this.#loginRegisterContainer.setAttribute('hidden', '');
+        this.#loginRegisterContainer.setAttribute('hidden', '')
         this.#registerContentContainer.setAttribute('hidden', '')
       }
     }
 
     /**
      * Handles the event submit on the login form.
-     * @param event
+     *
+     * @param {object} event - An event object.
      */
-    async #handleSubmitLogin(event) {
-
+    async #handleSubmitLogin (event) {
       // Prevent the default form submission behavior.
-      event.preventDefault();
+      event.preventDefault()
       console.log('submited login')
 
       // Get the form data.
-      const formData = new FormData(event.target);
+      const formData = new FormData(event.target)
 
       // Convert the form data to JSON.
-      const jsonData = {};
+      const jsonData = {}
       formData.forEach((value, key) => {
-        jsonData[key] = value;
-      });
+        jsonData[key] = value
+      })
 
       // Make a POST request to the server API.
       try {
@@ -430,53 +429,53 @@ customElements.define('movement-minder-login-register',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(jsonData)
-        });
+        })
 
         if (response.ok) {
           // Handle successful login.
-          console.log('Login successful');
+          console.log('Login successful')
           console.log(response)
 
           // Get the JWT token from the response.
           // eslint-disable-next-line camelcase
-          const { access_token } = await response.json();
+          const { access_token } = await response.json()
 
           // Save the JWT token in the browser's local storage.
-          localStorage.setItem('accessToken', access_token);
+          localStorage.setItem('accessToken', access_token)
 
           // Redirect or perform other actions.
           this.#loginErrorMessageContainer.setAttribute('hidden', '')
           this.#loginRegisterContainer.setAttribute('hidden', '')
         } else {
           // Handle error response.
-          console.error('Login failed:', response.status);
+          console.error('Login failed:', response.status)
           // Display error message to the user.
           this.#loginErrorMessageContainer.removeAttribute('hidden')
         }
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error:', error)
         // Handle network errors
       }
     }
 
     /**
      * Handles the event submit on the register form.
-     * @param event
+     *
+     * @param {object} event - An event object.
      */
-    async #handleSubmitRegister(event) {
-
+    async #handleSubmitRegister (event) {
       // Prevent the default form submission behavior.
-      event.preventDefault();
+      event.preventDefault()
       console.log('submited register')
 
       // Get the form data.
-      const formData = new FormData(event.target);
+      const formData = new FormData(event.target)
 
       // Convert the form data to JSON.
-      const jsonData = {};
+      const jsonData = {}
       formData.forEach((value, key) => {
-        jsonData[key] = value;
-      });
+        jsonData[key] = value
+      })
 
       // Make a POST request to the server API.
       try {
@@ -486,11 +485,11 @@ customElements.define('movement-minder-login-register',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(jsonData)
-        });
+        })
 
         if (response.ok) {
           // Handle successful login.
-          console.log('Register successful');
+          console.log('Register successful')
           console.log(response)
           // Redirect or perform other actions.
           this.#registerErrorMessageContainer.setAttribute('hidden', '')
@@ -498,12 +497,12 @@ customElements.define('movement-minder-login-register',
           this.#loginContentContainer.removeAttribute('hidden')
         } else {
           // Handle error response.
-          console.error('Register failed:', response.status);
+          console.error('Register failed:', response.status)
           // Display error message to the user.
           this.#registerErrorMessageContainer.removeAttribute('hidden')
         }
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error:', error)
         // Handle network errors
       }
     }
@@ -511,7 +510,7 @@ customElements.define('movement-minder-login-register',
     /**
      * Shows the Register form.
      */
-    #showRegisterForm() {
+    #showRegisterForm () {
       // Hide the login form and content.
       this.#loginContentContainer.setAttribute('hidden', '')
 
@@ -519,4 +518,4 @@ customElements.define('movement-minder-login-register',
       this.#registerContentContainer.removeAttribute('hidden')
     }
   }
-);
+)

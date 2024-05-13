@@ -1,7 +1,7 @@
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode'
 
 // Define template.
-const template = document.createElement('template');
+const template = document.createElement('template')
 template.innerHTML = `
 <style>
 /* Import Montserrat font */
@@ -118,7 +118,7 @@ input[type="number"] {
   <button id="startPauseButton">Start</button>
   <button id="resetButton">Reset</button>
 </div>
-`;
+`
 
 customElements.define('movement-minder-timer',
   /**
@@ -130,35 +130,35 @@ customElements.define('movement-minder-timer',
      *
      * @type {HTMLDivElement}
      */
-    #display;
+    #display
 
     /**
      * Reference to the start/pause button.
      *
      * @type {HTMLButtonElement}
      */
-    #startPauseButton;
+    #startPauseButton
 
     /**
      * Reference to the reset button.
      *
      * @type {HTMLButtonElement}
      */
-    #resetButton;
+    #resetButton
 
     /**
      * Reference to the configure button.
      *
      * @type {HTMLButtonElement}
      */
-    #configureButton;
+    #configureButton
 
     /**
      * Reference to the timer configuration form.
      *
      * @type {HTMLFormElement}
      */
-    #timerConfigurationForm;
+    #timerConfigurationForm
 
     /**
      * Reference to the configuration container.
@@ -170,23 +170,23 @@ customElements.define('movement-minder-timer',
     /**
      * Reference to the current time in seconds.
      *
-     * @type {Number}
+     * @type {number}
      */
-    #currentTimeInSeconds;
+    #currentTimeInSeconds
 
     /**
      * Reference to the start time value in seconds for the main timer.
      *
-     * @type {Number}
+     * @type {number}
      */
-    #mainTimerTimeInSeconds;
+    #mainTimerTimeInSeconds
 
     /**
      * Reference to the start time value in seconds for the break timer.
      *
-     * @type {Number}
+     * @type {number}
      */
-    #breakTimerTimeInSeconds;
+    #breakTimerTimeInSeconds
 
     /**
      * Reference to the message container.
@@ -198,7 +198,7 @@ customElements.define('movement-minder-timer',
     /**
      * Break is active.
      *
-     * @type {Boolean}
+     * @type {boolean}
      */
     #breakIsActive
 
@@ -207,25 +207,25 @@ customElements.define('movement-minder-timer',
      *
      * @type {AudioContext}
      */
-    #audioContext;
+    #audioContext
 
     /**
      * Reference to the Oscillator instance.
      *
      * @type {OscillatorNode}
      */
-    #oscillator;
+    #oscillator
 
     /**
      * Creates an instance of the current type.
      */
-    constructor() {
-      super();
+    constructor () {
+      super()
 
       // Attach a shadow DOM tree to this element and
       // append the template to the shadow root.
       this.attachShadow({ mode: 'open' })
-        .appendChild(template.content.cloneNode(true));
+        .appendChild(template.content.cloneNode(true))
 
       // Set the basic start values for the timer.
       this.#mainTimerTimeInSeconds = 30 * 60
@@ -234,19 +234,19 @@ customElements.define('movement-minder-timer',
       this.#breakIsActive = false
 
       // Get references to elements to change.
-      this.#display = this.shadowRoot.querySelector('#display');
-      this.#startPauseButton = this.shadowRoot.querySelector('#startPauseButton');
-      this.#resetButton = this.shadowRoot.querySelector('#resetButton');
+      this.#display = this.shadowRoot.querySelector('#display')
+      this.#startPauseButton = this.shadowRoot.querySelector('#startPauseButton')
+      this.#resetButton = this.shadowRoot.querySelector('#resetButton')
       this.#configureButton = this.shadowRoot.querySelector('#configureButton')
       this.#timerConfigurationForm = this.shadowRoot.querySelector('#timerConfigurationForm')
       this.#configurationContainer = this.shadowRoot.querySelector('#configurationContainer')
-      this.#messageContainer = this.shadowRoot.querySelector('#messageContainer');
+      this.#messageContainer = this.shadowRoot.querySelector('#messageContainer')
 
       // Add event listeners.
-      this.#startPauseButton.addEventListener('click', () => this.#toggleTimer());
-      this.#resetButton.addEventListener('click', () => this.#resetTimer());
-      this.#configureButton.addEventListener('click', () => this.#toggleConfiguration());
-      this.#timerConfigurationForm.addEventListener('submit', (event) => this.#handleConfirm(event));
+      this.#startPauseButton.addEventListener('click', () => this.#toggleTimer())
+      this.#resetButton.addEventListener('click', () => this.#resetTimer())
+      this.#configureButton.addEventListener('click', () => this.#toggleConfiguration())
+      this.#timerConfigurationForm.addEventListener('submit', (event) => this.#handleConfirm(event))
     }
 
     /**
@@ -254,8 +254,8 @@ customElements.define('movement-minder-timer',
      *
      * @returns {string[]} A string array of attributes to monitor.
      */
-    static get observedAttributes() {
-      return ['start', 'pause'];
+    static get observedAttributes () {
+      return ['start', 'pause']
     }
 
     /**
@@ -265,89 +265,91 @@ customElements.define('movement-minder-timer',
      * @param {any} oldValue the old attribute value.
      * @param {any} newValue the new attribute value.
      */
-    attributeChangedCallback(name, oldValue, newValue) {
+    attributeChangedCallback (name, oldValue, newValue) {
       if (name === 'start' && newValue !== null) {
         // Handle start action...
         console.log('Timer started!')
-        this.#startTimer();
+        this.#startTimer()
       } else if (name === 'pause' && newValue !== null) {
         // Handle pause action...
         console.log('Timer paused!')
-        this.#pauseTimer();
+        this.#pauseTimer()
       }
     }
 
     /**
      * Toggles the timer between start and pause states.
      */
-    #toggleTimer() {
+    #toggleTimer () {
       if (this.hasAttribute('start')) {
-        this.removeAttribute('start');
-        this.setAttribute('pause', '');
-        this.#startPauseButton.textContent = 'Start';
+        this.removeAttribute('start')
+        this.setAttribute('pause', '')
+        this.#startPauseButton.textContent = 'Start'
       } else {
-        this.removeAttribute('pause');
-        this.setAttribute('start', '');
-        this.#startPauseButton.textContent = 'Pause';
+        this.removeAttribute('pause')
+        this.setAttribute('start', '')
+        this.#startPauseButton.textContent = 'Pause'
       }
     }
 
     /**
      * Starts the timer.
      */
-    #startTimer() {
+    #startTimer () {
       // Update the display initially.
-      this.#updateDisplay(this.#getCurrentTimeInSeconds());
+      this.#updateDisplay(this.#getCurrentTimeInSeconds())
 
       // Update the display every second.
       this.timerInterval = setInterval(() => {
         // Decrement the time by one second.
-        this.#setCurrentTimeInSeconds(this.#getCurrentTimeInSeconds() - 1);
+        this.#setCurrentTimeInSeconds(this.#getCurrentTimeInSeconds() - 1)
 
         // Update the display
-        this.#updateDisplay(this.#getCurrentTimeInSeconds());
+        this.#updateDisplay(this.#getCurrentTimeInSeconds())
 
         // Test the timer when it reaches zero.
-         this.#setCurrentTimeInSeconds(0)
+        // this.#setCurrentTimeInSeconds(0)
 
         // Check if the timer has reached 0.
         if (this.#getCurrentTimeInSeconds() <= 0) {
           this.#handleTimerEnd()
         }
-      }, 1000); // Update every second (1000 milliseconds).
+      }, 1000) // Update every second (1000 milliseconds).
     }
 
     /**
      * Getter for currentTimeInSeconds.
+     *
      * @returns {number} The current time in seconds.
      */
-    #getCurrentTimeInSeconds() {
-      return this.#currentTimeInSeconds;
+    #getCurrentTimeInSeconds () {
+      return this.#currentTimeInSeconds
     }
 
     /**
      * Setter for currentTimeInSeconds.
+     *
      * @param {number} newValue The new value for current time in seconds.
      */
-    #setCurrentTimeInSeconds(newValue) {
-      this.#currentTimeInSeconds = newValue;
+    #setCurrentTimeInSeconds (newValue) {
+      this.#currentTimeInSeconds = newValue
     }
 
     /**
      * Updates the display with the current time.
-     * 
+     *
      * @param {number} timeInSeconds The time in seconds.
      */
-    #updateDisplay(timeInSeconds) {
+    #updateDisplay (timeInSeconds) {
       // Calculate minutes and seconds
-      const minutes = Math.floor(timeInSeconds / 60);
-      const seconds = timeInSeconds % 60;
+      const minutes = Math.floor(timeInSeconds / 60)
+      const seconds = timeInSeconds % 60
 
       // Format minutes and seconds with leading zeros
-      const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
 
       // Update the display
-      this.#display.textContent = formattedTime;
+      this.#display.textContent = formattedTime
 
       // Update the browser tab text.
       document.title = `${formattedTime}`
@@ -356,53 +358,52 @@ customElements.define('movement-minder-timer',
     /**
      * Pauses the timer.
      */
-    #pauseTimer() {
+    #pauseTimer () {
       // Clear the interval to pause the timer.
-      clearInterval(this.timerInterval);
+      clearInterval(this.timerInterval)
     }
 
     /**
      * Resets the timer.
      */
-    #resetTimer() {
-
+    #resetTimer () {
       // Remove start attribute and reset text content.
       if (this.hasAttribute('start')) {
-        this.removeAttribute('start');
-        this.#startPauseButton.textContent = 'Start';
+        this.removeAttribute('start')
+        this.#startPauseButton.textContent = 'Start'
       }
 
       // Reset timer depending on break or main.
-      if (this.#breakIsActive == true) {
+      if (this.#breakIsActive === true) {
         // Reset the timer to break.
         this.#setCurrentTimeInSeconds(this.#breakTimerTimeInSeconds)
-        this.#updateDisplay(this.#getCurrentTimeInSeconds());
+        this.#updateDisplay(this.#getCurrentTimeInSeconds())
       } else {
         // Reset the timer to main.
         this.#setCurrentTimeInSeconds(this.#mainTimerTimeInSeconds)
-        this.#updateDisplay(this.#getCurrentTimeInSeconds());
+        this.#updateDisplay(this.#getCurrentTimeInSeconds())
       }
 
       // Clear the interval to pause the timer.
-      clearInterval(this.timerInterval);
+      clearInterval(this.timerInterval)
     }
 
     /**
      * Runs the oscillator, plays a sound.
      */
-    #playSound() {
+    #playSound () {
       if (this.#audioContext && this.#oscillator) {
-        this.#oscillator.start();
+        this.#oscillator.start()
         setTimeout(() => {
-          this.#oscillator.stop();
-        }, 1000); // 1000 milliseconds = 1 second.
+          this.#oscillator.stop()
+        }, 1000) // 1000 milliseconds = 1 second.
       }
     }
 
     /**
      * Create AudioContext and OscillatorNode.
      */
-    #createAudioContextAndOscillator() {
+    #createAudioContextAndOscillator () {
       // Setup the audio.
       // Create an AudioContext instance.
       this.#audioContext = new AudioContext()
@@ -414,17 +415,16 @@ customElements.define('movement-minder-timer',
       this.#oscillator.type = 'sine'
 
       // Set the frequency of the sine wave (e.g., 440 Hz for A4).
-      this.#oscillator.frequency.setValueAtTime(440, this.#audioContext.currentTime);
+      this.#oscillator.frequency.setValueAtTime(440, this.#audioContext.currentTime)
 
       // Connect the oscillator to the destination (output).
-      this.#oscillator.connect(this.#audioContext.destination);
+      this.#oscillator.connect(this.#audioContext.destination)
     }
 
     /**
      * Handles the logic when the timer ends.
      */
-    #handleTimerEnd() {
-
+    #handleTimerEnd () {
       // Check if the user is logged in.
       const userIsLoggedIn = this.#isLoggedIn()
       // Decide if its break time or main time.
@@ -445,38 +445,40 @@ customElements.define('movement-minder-timer',
       }
 
       // Create the audio context and oscillator.
-      this.#createAudioContextAndOscillator();
+      this.#createAudioContextAndOscillator()
 
       // Play the sound.
-      this.#playSound();
+      this.#playSound()
 
       console.log('Timer hit zero!')
-
     }
 
     /**
      * Called after the element is inserted into the DOM.
      */
-    async connectedCallback() {
+    async connectedCallback () {
       // Hide elements from the user.
       this.#messageContainer.setAttribute('hidden', '')
       this.#configurationContainer.setAttribute('hidden', '')
-
     }
 
     /**
      * Gets the JWT token from the local storage.
+     *
+     * @returns {object} a JWT token.
      */
-    #getJwtTokenFromLocalStorage() {
+    #getJwtTokenFromLocalStorage () {
       // Retrieve the JWT token from local storage.
-      const jwtToken = localStorage.getItem('accessToken');
+      const jwtToken = localStorage.getItem('accessToken')
       return jwtToken
     }
 
     /**
      * Checks if a user is logged in.
+     *
+     * @returns {boolean} depending if the user is logged in or not.
      */
-    #isLoggedIn() {
+    #isLoggedIn () {
       if (this.#getJwtTokenFromLocalStorage !== undefined) {
         return true
       } else {
@@ -486,16 +488,18 @@ customElements.define('movement-minder-timer',
 
     /**
      * Updates the time on the timeTracker object in the back-end.
+     *
+     * @param {object} propertyToUpdate - The property to change on the timeTracker object.
      */
-    async #updateTimeTrackerTime(propertyToUpdate) {
+    async #updateTimeTrackerTime (propertyToUpdate) {
       try {
         // Get the payload data.
         const jwtToken = this.#getJwtTokenFromLocalStorage()
-        const payLoadData = jwtDecode(jwtToken);
-        console.log(payLoadData);
+        const payLoadData = jwtDecode(jwtToken)
+        console.log(payLoadData)
 
         // Construct the URL for the GET request.
-        const url = `https://movement-minder-restful-api.onrender.com/api/v1/timeTrackers/${payLoadData.timeTrackerId}`;
+        const url = `https://movement-minder-restful-api.onrender.com/api/v1/timeTrackers/${payLoadData.timeTrackerId}`
 
         // Decide what time data to update.
         let newTimeData
@@ -525,34 +529,37 @@ customElements.define('movement-minder-timer',
             'Content-Type': 'application/json' // Specify the content type as JSON.
           },
           body: JSON.stringify(jsonData) // Convert your JSON data to a string.
-        });
+        })
 
         if (response.ok) {
           // Handle successful response.
-         // const data = await response.json();
-         // console.log('TimeTracker data:', data);
-         console.log(response);
+          // const data = await response.json();
+          // console.log('TimeTracker data:', data);
+          console.log(response)
         } else {
           // Handle error response
-          throw new Error('Failed to update the timeTracker data');
+          throw new Error('Failed to update the timeTracker data')
         }
       } catch (error) {
         // Handle fetch errors
-        console.error('Error updating timeTracker data:', error);
+        console.error('Error updating timeTracker data:', error)
       }
     }
 
     /**
      * Make a GET fetch request to get the users activity data from the server.
+     *
+     * @param {object} jwtToken - A JWT access token.
+     * @returns {object} a timeTracker object.
      */
-    async #fetchUserActivityData(jwtToken) {
+    async #fetchUserActivityData (jwtToken) {
       try {
         // Get the payload data.
-        const payLoadData = jwtDecode(jwtToken);
-        console.log(payLoadData);
+        const payLoadData = jwtDecode(jwtToken)
+        console.log(payLoadData)
 
         // Construct the URL for the GET request.
-        const url = `https://movement-minder-restful-api.onrender.com/api/v1/timeTrackers/${payLoadData.timeTrackerId}`;
+        const url = `https://movement-minder-restful-api.onrender.com/api/v1/timeTrackers/${payLoadData.timeTrackerId}`
 
         // Make the GET request with the JWT token in the Authorization header.
         const response = await fetch(url, {
@@ -560,30 +567,30 @@ customElements.define('movement-minder-timer',
           headers: {
             Authorization: `Bearer ${jwtToken}`
           }
-        });
+        })
 
         if (response.ok) {
           // Handle successful response
-          const data = await response.json();
-          console.log('TimeTracker data:', data);
+          const data = await response.json()
+          console.log('TimeTracker data:', data)
           // You can perform further actions with the retrieved data here
           return data
         } else {
           // Handle error response
-          throw new Error('Failed to fetch timeTracker data');
+          throw new Error('Failed to fetch timeTracker data')
         }
       } catch (error) {
         // Handle fetch errors
-        console.error('Error fetching timeTracker data:', error);
+        console.error('Error fetching timeTracker data:', error)
       }
     }
 
     /**
      * Handle the "startBreak" event.
      */
-    #handleStartBreakEvent() {
+    #handleStartBreakEvent () {
       // Start the break timer.
-      console.log('Received startBreak event');
+      console.log('Received startBreak event')
       this.#messageContainer.removeAttribute('hidden', '')
       this.#breakIsActive = true
 
@@ -595,8 +602,8 @@ customElements.define('movement-minder-timer',
 
       // Emit the "startBreak" event.
       this.dispatchEvent(new window.CustomEvent('startBreak', {
-        composed: false,      // Defaults to false but added for clearity.
-        bubbles: true,         // Needed. We want to bubble the event to todo-list and further.
+        composed: false, // Defaults to false but added for clearity.
+        bubbles: true, // Needed. We want to bubble the event to todo-list and further.
         detail: 'Time to take a break!'
       }))
     }
@@ -604,7 +611,7 @@ customElements.define('movement-minder-timer',
     /**
      * Handle the "startMain" event.
      */
-    #handleStartMainEvent() {
+    #handleStartMainEvent () {
       // Start the main timer.
       this.#messageContainer.setAttribute('hidden', '')
       this.#breakIsActive = false
@@ -617,40 +624,41 @@ customElements.define('movement-minder-timer',
 
       // Emit the "startBreak" event.
       this.dispatchEvent(new window.CustomEvent('startBreak', {
-        composed: false,      // Defaults to false but added for clearity.
-        bubbles: true,         // Needed. We want to bubble the event to todo-list and further.
+        composed: false, // Defaults to false but added for clearity.
+        bubbles: true, // Needed. We want to bubble the event to todo-list and further.
         detail: 'Break is finished!'
       }))
-
     }
 
     /**
      * Called after the element has been removed from the DOM.
      */
-    disconnectedCallback() {
+    disconnectedCallback () {
     }
 
     /**
      * Shows the configuration settings.
      */
-    #toggleConfiguration() {
+    #toggleConfiguration () {
       if (this.#configurationContainer.hasAttribute('hidden')) {
-        this.#configurationContainer.removeAttribute('hidden');
+        this.#configurationContainer.removeAttribute('hidden')
       } else {
-        this.#configurationContainer.setAttribute('hidden', '');
+        this.#configurationContainer.setAttribute('hidden', '')
       }
     }
 
     /**
      * Handles the confirm logic.
+     *
+     * @param event
      */
-    #handleConfirm(event) {
+    #handleConfirm (event) {
       // Prevent the default form submission behavior.
-      event.preventDefault();
+      event.preventDefault()
 
       // Collect input data.
-      const mainTime = this.shadowRoot.getElementById('mainTimeInput').value;
-      const breakTime = this.shadowRoot.getElementById('breakTimeInput').value;
+      const mainTime = this.shadowRoot.getElementById('mainTimeInput').value
+      const breakTime = this.shadowRoot.getElementById('breakTimeInput').value
       console.log(mainTime)
       console.log(breakTime)
 
@@ -665,4 +673,4 @@ customElements.define('movement-minder-timer',
       this.#toggleConfiguration()
     }
   }
-);
+)

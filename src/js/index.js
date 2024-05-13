@@ -12,18 +12,21 @@ import './components/movement-minder-statistics/movement-minder-statistics'
 import './components/movement-minder-login-register/movement-minder-login-register'
 
 // Check if the browser supports the Notification API.
-if ("Notification" in window) {
+if ('Notification' in window) {
   // Request permission for notifications
-  async function requestNotificationPermission() {
-    const permission = await Notification.requestPermission();
-    if (permission === "granted") {
-      console.log("Notification permission granted.");
+  /**
+   *
+   */
+  async function requestNotificationPermission () {
+    const permission = await Notification.requestPermission()
+    if (permission === 'granted') {
+      console.log('Notification permission granted.')
     } else {
-      console.log("Notification permission denied.");
+      console.log('Notification permission denied.')
     }
   }
 
-  requestNotificationPermission();
+  requestNotificationPermission()
 }
 
 // Register the service worker.
@@ -47,8 +50,8 @@ document.addEventListener('startBreak', event => {
   navigator.serviceWorker.controller.postMessage({
     type: 'startBreak',
     message: event.detail
-  });
-});
+  })
+})
 
 // Create the web components needed.
 const timerElement = document.createElement('movement-minder-timer')
@@ -61,8 +64,8 @@ const loginRegisterElement = document.createElement('movement-minder-login-regis
 const headerElement = document.querySelector('header')
 
 // Set the statistics and login/register components as slot content.
-statisticsElement.setAttribute('slot', 'statistics');
-loginRegisterElement.setAttribute('slot', 'loginRegister');
+statisticsElement.setAttribute('slot', 'statistics')
+loginRegisterElement.setAttribute('slot', 'loginRegister')
 
 // Add the components as children to the body element.
 document.body.appendChild(timerElement)

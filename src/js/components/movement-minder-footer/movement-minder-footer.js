@@ -1,5 +1,5 @@
 // Define template.
-const template = document.createElement('template');
+const template = document.createElement('template')
 template.innerHTML = `
 <style>
 /* Import Montserrat font */
@@ -46,21 +46,21 @@ customElements.define('movement-minder-footer',
      *
      * @type {HTMLDivElement}
      */
-    #footerContainer;
+    #footerContainer
 
     /**
      * Creates an instance of the current type.
      */
-    constructor() {
-      super();
+    constructor () {
+      super()
 
       // Attach a shadow DOM tree to this element and
       // append the template to the shadow root.
       this.attachShadow({ mode: 'open' })
-        .appendChild(template.content.cloneNode(true));
+        .appendChild(template.content.cloneNode(true))
 
       // Get references to elements to change.
-      this.#footerContainer = this.shadowRoot.querySelector('#footerContainer');
+      this.#footerContainer = this.shadowRoot.querySelector('#footerContainer')
 
       // Add event listeners.
       // this.#startPauseButton.addEventListener('click', () => this.#toggleTimer());
@@ -69,13 +69,13 @@ customElements.define('movement-minder-footer',
     /**
      * Called after the element is inserted into the DOM.
      */
-    async connectedCallback() {
+    async connectedCallback () {
     }
 
     /**
      * Called after the element has been removed from the DOM.
      */
-    disconnectedCallback() {
+    disconnectedCallback () {
     }
   }
 )
