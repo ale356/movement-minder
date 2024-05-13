@@ -496,7 +496,6 @@ customElements.define('movement-minder-timer',
         // Get the payload data.
         const jwtToken = this.#getJwtTokenFromLocalStorage()
         const payLoadData = jwtDecode(jwtToken)
-        console.log(payLoadData)
 
         // Construct the URL for the GET request.
         const url = `https://movement-minder-restful-api.onrender.com/api/v1/timeTrackers/${payLoadData.timeTrackerId}`
@@ -505,7 +504,6 @@ customElements.define('movement-minder-timer',
         let newTimeData
         let oldTimeData
         const timeTrackerObject = await this.#fetchUserActivityData(jwtToken)
-        console.log(timeTrackerObject)
 
         if (propertyToUpdate === 'totalSedentaryTime') {
           newTimeData = this.#mainTimerTimeInSeconds / 60
@@ -514,12 +512,10 @@ customElements.define('movement-minder-timer',
           newTimeData = this.#breakTimerTimeInSeconds / 60
           oldTimeData = timeTrackerObject.totalBreakTime
         }
-        console.log(propertyToUpdate)
         // The JSON data to update the timerTracker object with.
         const jsonData = {
           [propertyToUpdate]: oldTimeData + newTimeData
         }
-        console.log(JSON.stringify(jsonData))
 
         // Make the PUT request with the JWT token in the Authorization header.
         const response = await fetch(url, {
@@ -533,9 +529,6 @@ customElements.define('movement-minder-timer',
 
         if (response.ok) {
           // Handle successful response.
-          // const data = await response.json();
-          // console.log('TimeTracker data:', data);
-          console.log(response)
         } else {
           // Handle error response
           throw new Error('Failed to update the timeTracker data')
@@ -556,7 +549,6 @@ customElements.define('movement-minder-timer',
       try {
         // Get the payload data.
         const payLoadData = jwtDecode(jwtToken)
-        console.log(payLoadData)
 
         // Construct the URL for the GET request.
         const url = `https://movement-minder-restful-api.onrender.com/api/v1/timeTrackers/${payLoadData.timeTrackerId}`
@@ -572,7 +564,6 @@ customElements.define('movement-minder-timer',
         if (response.ok) {
           // Handle successful response
           const data = await response.json()
-          console.log('TimeTracker data:', data)
           // You can perform further actions with the retrieved data here
           return data
         } else {
@@ -590,7 +581,6 @@ customElements.define('movement-minder-timer',
      */
     #handleStartBreakEvent () {
       // Start the break timer.
-      console.log('Received startBreak event')
       this.#messageContainer.removeAttribute('hidden', '')
       this.#breakIsActive = true
 
@@ -659,8 +649,6 @@ customElements.define('movement-minder-timer',
       // Collect input data.
       const mainTime = this.shadowRoot.getElementById('mainTimeInput').value
       const breakTime = this.shadowRoot.getElementById('breakTimeInput').value
-      console.log(mainTime)
-      console.log(breakTime)
 
       // Set the new time.
       this.#mainTimerTimeInSeconds = mainTime * 60

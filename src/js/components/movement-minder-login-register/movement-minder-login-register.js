@@ -394,7 +394,6 @@ customElements.define('movement-minder-login-register',
     async #handleSubmitLogin (event) {
       // Prevent the default form submission behavior.
       event.preventDefault()
-      console.log('submited login')
 
       // Get the form data.
       const formData = new FormData(event.target)
@@ -417,7 +416,6 @@ customElements.define('movement-minder-login-register',
 
         if (response.ok) {
           // Handle successful login.
-          console.log('Login successful')
           console.log(response)
 
           // Get the JWT token from the response.
@@ -450,7 +448,6 @@ customElements.define('movement-minder-login-register',
     async #handleSubmitRegister (event) {
       // Prevent the default form submission behavior.
       event.preventDefault()
-      console.log('submited register')
 
       // Get the form data.
       const formData = new FormData(event.target)
@@ -473,7 +470,6 @@ customElements.define('movement-minder-login-register',
 
         if (response.ok) {
           // Handle successful login.
-          console.log('Register successful')
           console.log(response)
           // Redirect or perform other actions.
           this.#registerErrorMessageContainer.setAttribute('hidden', '')

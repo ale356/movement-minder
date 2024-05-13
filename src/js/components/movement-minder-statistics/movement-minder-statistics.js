@@ -251,7 +251,6 @@ customElements.define('movement-minder-statistics',
       try {
         // Get the payload data.
         const payLoadData = jwtDecode(jwtToken)
-        console.log(payLoadData)
 
         // Construct the URL for the GET request.
         const url = `https://movement-minder-restful-api.onrender.com/api/v1/timeTrackers/${payLoadData.timeTrackerId}`
@@ -267,7 +266,6 @@ customElements.define('movement-minder-statistics',
         if (response.ok) {
           // Handle successful response
           const data = await response.json()
-          console.log('TimeTracker data:', data)
           // You can perform further actions with the retrieved data here
           return data
         } else {
