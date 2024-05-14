@@ -396,8 +396,13 @@ customElements.define('movement-minder-login-register',
       if (this.#loginRegisterContainer.hasAttribute('hidden')) {
         // This logic runs when you open the popup window.
         this.#loginRegisterContainer.removeAttribute('hidden')
-        // this.#loginContentContainer.removeAttribute('hidden')
         this.#loginErrorMessageContainer.setAttribute('hidden', '')
+        // Determine to show the login or logout button.
+        if (this.#logoutButton.hasAttribute('hidden') === false) {
+          this.#loginContentContainer.setAttribute('hidden', '')
+        } else {
+          this.#loginContentContainer.removeAttribute('hidden')
+        }
       } else {
         // This logic runs when you close the popup window.
         this.#loginRegisterContainer.setAttribute('hidden', '')
