@@ -93,6 +93,16 @@ input[type="number"] {
   #timerContainer {
   margin: 40px auto 20px auto;
   }
+
+  @media screen and (min-width: 700px) {
+  #timerContainer {
+    margin-top: 100px;
+  }
+
+  @media screen and (min-width: 900px) {
+  #timerContainer {
+    margin-top: 140px;
+  }
 }
 
 </style>
