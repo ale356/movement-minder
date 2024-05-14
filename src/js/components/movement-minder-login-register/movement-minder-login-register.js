@@ -55,6 +55,10 @@ template.innerHTML = `
   align-items: center; /* Center vertically */
 }
 
+#logoutButton {
+  margin-top: 100px;
+}
+
   button {
     font-size: 36px;
     padding: 10px 20px;
@@ -166,6 +170,10 @@ button {
       margin: 30px;
     }
 
+    #logoutButton {
+  margin-top: 150px;
+}
+
     #loginRegisterContent {
     font-size: 24px; 
     margin: 11% auto 0px auto;
@@ -208,6 +216,7 @@ span {
 <div id="loginRegisterContainer">
 <button id="closeButton">&times;</button>
   <div id="loginRegisterContent">
+    <button id="logoutButton">Logout</button>
     <div id="loginContent">
       <h2>Login</h2>
       <div class="errorMessage" id="loginErrorMessage">Invalid username or password.</div>
@@ -323,6 +332,13 @@ customElements.define('movement-minder-login-register',
     #registerContentContainer
 
     /**
+     * Reference to the logout button.
+     *
+     * @type {HTMLButtonElement}
+     */
+    #logoutButton
+
+    /**
      * Creates an instance of the current type.
      */
     constructor () {
@@ -344,6 +360,7 @@ customElements.define('movement-minder-login-register',
       this.#signUpLink = this.shadowRoot.querySelector('#signUpLink')
       this.#loginContentContainer = this.shadowRoot.querySelector('#loginContent')
       this.#registerContentContainer = this.shadowRoot.querySelector('#registerContent')
+      this.#logoutButton = this.shadowRoot.querySelector('#logoutButton')
 
       // Add event listeners.
       this.#loginRegisterButton.addEventListener('click', () => this.#toggleLoginRegister())
@@ -351,6 +368,7 @@ customElements.define('movement-minder-login-register',
       this.#loginForm.addEventListener('submit', (event) => this.#handleSubmitLogin(event))
       this.#registerForm.addEventListener('submit', (event) => this.#handleSubmitRegister(event))
       this.#signUpLink.addEventListener('click', () => this.#showRegisterForm())
+      this.#logoutButton.addEventListener('click', () => this.#handleLogout())
     }
 
     /**
@@ -362,6 +380,7 @@ customElements.define('movement-minder-login-register',
       this.#loginErrorMessageContainer.setAttribute('hidden', '')
       this.#registerErrorMessageContainer.setAttribute('hidden', '')
       this.#registerContentContainer.setAttribute('hidden', '')
+      this.#logoutButton.setAttribute('hidden', '')
     }
 
     /**
@@ -377,7 +396,7 @@ customElements.define('movement-minder-login-register',
       if (this.#loginRegisterContainer.hasAttribute('hidden')) {
         // This logic runs when you open the popup window.
         this.#loginRegisterContainer.removeAttribute('hidden')
-        this.#loginContentContainer.removeAttribute('hidden')
+        // this.#loginContentContainer.removeAttribute('hidden')
         this.#loginErrorMessageContainer.setAttribute('hidden', '')
       } else {
         // This logic runs when you close the popup window.
@@ -428,6 +447,8 @@ customElements.define('movement-minder-login-register',
           // Redirect or perform other actions.
           this.#loginErrorMessageContainer.setAttribute('hidden', '')
           this.#loginRegisterContainer.setAttribute('hidden', '')
+          this.#logoutButton.removeAttribute('hidden', '')
+          this.#loginContentContainer.setAttribute('hidden', '')
         } else {
           // Handle error response.
           console.error('Login failed:', response.status)
@@ -496,6 +517,19 @@ customElements.define('movement-minder-login-register',
 
       // Show the register form instead.
       this.#registerContentContainer.removeAttribute('hidden')
+    }
+
+    /**
+     * Handles the logout action.
+     */
+    #handleLogout () {
+      // Remove the JWT token from local storage.
+      localStorage.removeItem('accessToken')
+
+      // Reset the popup window by hiding and showing elements.
+      this.#loginRegisterContainer.setAttribute('hidden', '')
+      this.#logoutButton.setAttribute('hidden', '')
+      this.#loginContentContainer.removeAttribute('hidden', '')
     }
   }
 )
