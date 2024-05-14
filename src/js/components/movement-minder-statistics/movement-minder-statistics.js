@@ -140,8 +140,8 @@ padding: 40px;
       <p>Please Log In To See Data.</p>
     </div>
     <div id="loggedIn">
-      <p>Total Sedentary Time: <span id="sedentaryTime"></></p>
-      <p>Total Break Time: <span id="breakTime"></></p>
+      <p>Total Sedentary Time (min): <span id="sedentaryTime"></></p>
+      <p>Total Break Time (min): <span id="breakTime"></></p>
     </div>
   </div>
 </div>
