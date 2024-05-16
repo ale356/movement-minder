@@ -137,15 +137,6 @@ margin-bottom: 600px;
 }
 }
 
-@media only screen
-  and (min-device-width: 768px) /* Minimum width for iPad Air */
-  and (max-device-width: 834px) /* Maximum width for iPad Air */ {
-  #faqButton {
-    margin-right: 50px;
-  }
-}
-
-
 @media screen and (min-width: 850px) {
 #faqContent {
 margin-top: 100px;

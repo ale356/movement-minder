@@ -167,7 +167,7 @@ button {
   @media screen and (min-width: 550px) {
     #closeButton {
       font-size: 55px;
-      margin: 30px;
+      margin: 50px 80px 50px 50px;
     }
 
     #logoutButton {
@@ -210,6 +210,14 @@ span {
   transform: scale(1.5);
 }
   }
+
+  @media only screen
+  and (min-device-width: 768px) /* Minimum width for iPad Air */
+  and (max-device-width: 834px) /* Maximum width for iPad Air */ {
+  #loginRegisterButton {
+    margin-right: 50px;
+  }
+}
 
 </style>
 <button id="loginRegisterButton"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg></button>
@@ -341,7 +349,7 @@ customElements.define('movement-minder-login-register',
     /**
      * Creates an instance of the current type.
      */
-    constructor () {
+    constructor() {
       super()
 
       // Attach a shadow DOM tree to this element and
@@ -374,7 +382,7 @@ customElements.define('movement-minder-login-register',
     /**
      * Called after the element is inserted into the DOM.
      */
-    async connectedCallback () {
+    async connectedCallback() {
       // Hide elements from the user.
       this.#loginRegisterContainer.setAttribute('hidden', '')
       this.#loginErrorMessageContainer.setAttribute('hidden', '')
@@ -386,13 +394,13 @@ customElements.define('movement-minder-login-register',
     /**
      * Called after the element has been removed from the DOM.
      */
-    disconnectedCallback () {
+    disconnectedCallback() {
     }
 
     /**
      * Shows the loginRegister popup window.
      */
-    #toggleLoginRegister () {
+    #toggleLoginRegister() {
       if (this.#loginRegisterContainer.hasAttribute('hidden')) {
         // This logic runs when you open the popup window.
         this.#loginRegisterContainer.removeAttribute('hidden')
@@ -415,7 +423,7 @@ customElements.define('movement-minder-login-register',
      *
      * @param {object} event - An event object.
      */
-    async #handleSubmitLogin (event) {
+    async #handleSubmitLogin(event) {
       // Prevent the default form submission behavior.
       event.preventDefault()
 
@@ -471,7 +479,7 @@ customElements.define('movement-minder-login-register',
      *
      * @param {object} event - An event object.
      */
-    async #handleSubmitRegister (event) {
+    async #handleSubmitRegister(event) {
       // Prevent the default form submission behavior.
       event.preventDefault()
 
@@ -516,7 +524,7 @@ customElements.define('movement-minder-login-register',
     /**
      * Shows the Register form.
      */
-    #showRegisterForm () {
+    #showRegisterForm() {
       // Hide the login form and content.
       this.#loginContentContainer.setAttribute('hidden', '')
 
@@ -527,7 +535,7 @@ customElements.define('movement-minder-login-register',
     /**
      * Handles the logout action.
      */
-    #handleLogout () {
+    #handleLogout() {
       // Remove the JWT token from local storage.
       localStorage.removeItem('accessToken')
 
