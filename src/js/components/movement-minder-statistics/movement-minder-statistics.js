@@ -296,7 +296,7 @@ customElements.define('movement-minder-statistics',
       const userIsLoggedIn = this.#isLoggedIn()
       if (userIsLoggedIn) {
         // Fetch the user data from the server.
-        const jwtToken = this.#getJwtTokenFromLocalStorage()
+        const jwtToken = await this.#getJwtTokenFromLocalStorage()
         const userData = await this.#fetchUserActivityData(jwtToken)
         // Show the data for the user.
         this.#sedentaryTimeSpan.textContent = userData.totalSedentaryTime
