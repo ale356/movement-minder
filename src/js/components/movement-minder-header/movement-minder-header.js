@@ -76,6 +76,7 @@ template.innerHTML = `
   <nav>
   <slot name="statistics"></slot>
   <slot name="loginRegister"></slot>
+  <slot name="faq"></slot>
   </nav>
   </div>
 </div>
