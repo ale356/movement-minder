@@ -284,11 +284,8 @@ customElements.define('movement-minder-statistics',
      * @returns {boolean} depending if the user is logged in or not.
      */
     #isLoggedIn () {
-      if (this.#getJwtTokenFromLocalStorage !== undefined) {
-        return true
-      } else {
-        return false
-      }
+      const jwtToken = this.#getJwtTokenFromLocalStorage();
+      return typeof jwtToken === 'string'
     }
 
     /**
